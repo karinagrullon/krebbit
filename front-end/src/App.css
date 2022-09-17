@@ -1,0 +1,110 @@
+body {
+  background-color: #FFFBE8;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Home-word-wrapper {
+  font-family: "Bubblegum Sans";
+  font-size: 40px;
+  color: #44538C;
+  margin-right: 150px;
+}
+
+.Home-image {
+  padding: 0 8px 0 0;
+  position: relative;
+  top: 11px;
+}
+
+.Purple-active:active {
+  background-color: #44538C;
+}
+
+.Main-menu-items {
+  padding: 0 35px 0 0;
+}
+
+.Main-banner-wrapper {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.Main-banner-rectangle {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: 100px;
+}
+
+.App-wrapper-container {
+  padding: 0;
+}
+
+.Main-stories-section-title {
+  font-size: 28px;
+  color: #44538C;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.Main-stories-section {
+  background-color: #C3E968;
+  padding: 80px;
+}
+
+.stories-card {
+  margin-bottom: 40px;
+}
+
+.stories-card-tag-wrapper {
+  margin-bottom: 20px;
+}
+
+.stories-card-tag {
+  margin: 1px;
+  background-color: #F6F6F6;
+  border-color: #AEAFAC;
+  border-width: 2px;
+  padding: 1px 5px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
