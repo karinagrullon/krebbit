@@ -9,7 +9,7 @@ function BasicExample() {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand>
             <span class="Home-image">
                 <img
                     src={ KribberIcon }
@@ -27,11 +27,11 @@ function BasicExample() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <NavDropdown title="Stories" id="basic-nav-dropdown" className="Main-menu-items">
-                <NavDropdown.Item className="Purple-active" href="#action/3.1">Age</NavDropdown.Item>
+                <NavDropdown.Item className="Purple-active" href="#action/3.1"><a href="#age">Age</a></NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item className="Purple-active" href="#action/3.2">Lenght</NavDropdown.Item>
+                <NavDropdown.Item className="Purple-active" href="#action/3.2"><a href="#lenght">Lenght</a></NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item className="Purple-active" href="#action/3.3">Topic</NavDropdown.Item>
+                <NavDropdown.Item className="Purple-active" href="#action/3.3"><a href="#topic">Topic</a></NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="#link">About</Nav.Link>
             </Nav>

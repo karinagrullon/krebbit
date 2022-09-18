@@ -6,23 +6,23 @@ import Banner from '../Banner';
 import MainPageStoriesSection from '../MainPageStoriesSection';
 import MainPageNavigationSection from '../MainPageNavigationSection';
 
-function ContainerExample() {
+function StoriesFilterResults() {
   return (
     <div>
       <Banner />
       <Container fluid className="App-wrapper-container">
         <Row>
-          <Col><MainPageStoriesSection /></Col>
+          <Col></Col>
         </Row>
         <Row>
         <Col></Col>
         </Row>
         <Row>
-          <Col><MainPageNavigationSection /></Col>
+          <Col></Col>
         </Row>
       </Container>
     </div>
   );
 }
 
-export default ContainerExample;
+export default StoriesFilterResults;
