@@ -5,8 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Banner from '../Banner';
 import MainPageStoriesSection from '../MainPageStoriesSection';
 import MainPageNavigationSection from '../MainPageNavigationSection';
+import StoryPage from '../StoryPage';
 
-function ContainerExample() {
+function HomePage() {
   return (
     <div>
       <Banner />
@@ -25,4 +26,4 @@ function ContainerExample() {
   );
 }
 
-export default ContainerExample;
+export default HomePage;

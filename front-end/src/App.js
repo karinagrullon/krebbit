@@ -6,7 +6,9 @@ import './App.css';
 import "@fontsource/bubblegum-sans";
 
 import MainMenu from './components/MainMenu';
-import AppWrapper from './components/AppWrapper';
+import HomePage from './components/HomePage';
+import StoryPage from './components/StoryPage';
+import PageNotFound from './components/ErrorPages/PageNotFound';
 import KrebbitIcon from './images/icons/frog-57x57.png';
 
 function App() {
@@ -40,7 +42,11 @@ function App() {
       <MainMenu />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AppWrapper/>} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="story-page" element={<StoryPage />} />
+          
+          {/* only match this when no other routes match */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

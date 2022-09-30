@@ -2,16 +2,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Banner from '../Banner';
-import MainPageStoriesSection from '../MainPageStoriesSection';
-import MainPageNavigationSection from '../MainPageNavigationSection';
-
-function StoriesFilterResults() {
+function PageNotFound() {
   return (
     <div>
       <Container fluid className="Home-page-container">
         <Row>
-          <Col></Col>
+          <Col>404 Page Not Found</Col>
         </Row>
         <Row>
         <Col></Col>
@@ -24,4 +20,4 @@ function StoriesFilterResults() {
   );
 }
 
-export default StoriesFilterResults;
+export default PageNotFound;

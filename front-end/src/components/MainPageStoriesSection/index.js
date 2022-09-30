@@ -18,7 +18,7 @@ function MainPageStoriesSection() {
                 <Col><StoryCard /></Col>
             </Row>
             <Row>
-                <Col sm={12}><div className="Main-stories-section-title">Latest Videos</div></Col>
+                <Col sm={12}><div className="Main-stories-section-title">Latest Stories</div></Col>
             </Row>
             <Row>
                 <Col><StoryCard /></Col>

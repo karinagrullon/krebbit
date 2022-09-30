@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import KribberIcon from '../../images/icons/frog-57x57.png';
+import KrebbitIcon from '../../images/icons/frog-57x57.png';
 import '../../App.css';
 
 function BasicExample() {
@@ -12,7 +12,7 @@ function BasicExample() {
         <Navbar.Brand>
             <span class="Home-image">
                 <img
-                    src={ KribberIcon }
+                    src={ KrebbitIcon }
                     width="33"
                     height="33"
                     className="d-inline-block align-top"
@@ -20,7 +20,7 @@ function BasicExample() {
                 />
             </span>
             <span class="Home-word-wrapper">
-                Kribber
+                Krebbit
             </span>
         </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/melidagrullon/Documents/Fall 2022/Krebbit/kribber/back-end/venv/bin/python3" "$0" "$@"
+'''exec' "/Users/melidagrullon/Documents/Fall 2022/Krebbit/krebbit/back-end/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

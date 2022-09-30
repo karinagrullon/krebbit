@@ -9,7 +9,7 @@ function MainPageNavigationSection() {
     return (
         <Container className="Main-stories-navigation">
             <Row>
-                <Col sm={12}><div className="Main-stories-navigation-title"><a id="age">Age</a></div></Col>
+                <Col sm={12}><div className="Main-stories-navigation-title"><a id="age"></a>Age</div></Col>
             </Row>
             <Row>
                 <Col sm><a href="#" className="Main-stories-navigation-link">Age 0-3</a></Col>
