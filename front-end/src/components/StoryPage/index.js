@@ -22,16 +22,14 @@ import MrMcKay3 from '../../stories/mr-mckay/3.jpg';
 function StoryPage() {
   const carouselRef = React.useRef(null);
 
-  const previousWordArrowUpPress = useKeyPress('ArrowUp');
-  const nextWordArrowDownPress = useKeyPress('ArrowDown');
-  const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
-  const nextPageArrowRightPress = useKeyPress('ArrowRight');
-
   const playIcon = <FontAwesomeIcon icon={faPlay} />
   const backwardIcon = <FontAwesomeIcon icon={faBackward} />
   const forwardIcon = <FontAwesomeIcon icon={faForward} />
   const backwardStepIcon = <FontAwesomeIcon icon={faBackwardStep} />
   const forwardStepIcon = <FontAwesomeIcon icon={faForwardStep} />
+
+  const previousWordArrowLeftPress = useKeyPress('ArrowLeft');
+  const nextWordArrowRightPress = useKeyPress('ArrowRight');
 
   const onPrevPageClick = () => {
     carouselRef.current.prev();
@@ -113,7 +111,7 @@ function StoryPage() {
             <Button onClick={onNextPageClick} className="Story-player Story-player-next-page">{forwardStepIcon}</Button>
           </OverlayTrigger>
           </Col>
-          <Col sm={1}>{previousWordArrowUpPress && "up"}{previousPageArrowLeftPress && "left"}{nextPageArrowRightPress && "right"}</Col>
+          <Col sm={1}>{previousWordArrowLeftPress && "left"}{nextWordArrowRightPress && "right"}</Col>
         </Row>
         <Row>
         <Col></Col>
