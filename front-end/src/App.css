@@ -148,19 +148,22 @@ body {
 .Story-player {
   border-radius: 50%;
   border-width: 2px;
-  font-weight: bold;
   color: white;
   background-color: #44538C;
   border-color: #C3E968;
   box-shadow: -1px 1px 1px 0px #CCC;
   margin: 5px;
-  padding: 0;
+  padding: 5px;
 }
 
 .Story-player-play {
   width: 60px;
   height: 60px;
   font-size: 34px;
+}
+
+.Story-player-play:active {
+  background-color: #C3E968;
 }
 
 .Story-player-previous-word {
@@ -190,6 +193,28 @@ body {
 .Story-player:hover {
   background-color: #2e3861 !important;
   border-color: #C3E968 !important;
+}
+
+.Krebbit-tooltip > .tooltip-inner {
+  color: white;
+  background-color: #29335a;
+  border: 1px solid #29335a;
+}
+
+ .Krebbit-tooltip > .tooltip-arrow {
+  /* border-top: 5px solid #29335a !important; */
+  display: none;
+ }
+
+ .tooltip::after {
+  position: absolute;
+  left: 45%;
+  top: 75%;
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #29335a;
+  transform: rotate(45deg);
 }
 
 @keyframes App-logo-spin {
