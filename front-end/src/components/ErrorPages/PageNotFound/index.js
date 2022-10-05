@@ -5,9 +5,9 @@ import Col from 'react-bootstrap/Col';
 function PageNotFound() {
   return (
     <div>
-      <Container fluid className="Home-page-container">
+      <Container className="Home-page-container">
         <Row>
-          <Col>404 Page Not Found</Col>
+          <Col><h2 className="Page-desc">404 Page Not Found</h2></Col>
         </Row>
         <Row>
         <Col></Col>

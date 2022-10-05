@@ -9,7 +9,7 @@ function AboutPage() {
     <div>
       <Container className="App-wrapper-container">
         <Row>
-          <Col><Col><h2 className="Page-desc">About</h2></Col></Col>
+          <Col><h2 className="Page-desc">About</h2></Col>
         </Row>
         <Row>
           <Col>
