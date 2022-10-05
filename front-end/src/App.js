@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import "@fontsource/bubblegum-sans";
 
 import MainMenu from './components/MainMenu';
 import HomePage from './components/HomePage';
 import StoryPage from './components/StoryPage';
+import AboutPage from './components/AboutPage';
 import PageNotFound from './components/ErrorPages/PageNotFound';
 import KrebbitIcon from './images/icons/frog-57x57.png';
 
@@ -39,11 +39,12 @@ function App() {
         defaultTitle="Krebbit">
         <link rel="frog" href= { KrebbitIcon } />
       </Helmet>
-      <MainMenu />
       <BrowserRouter>
+        <MainMenu />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="story-page" element={<StoryPage />} />
+          <Route path="about-page" element={<AboutPage />} />
           
           {/* only match this when no other routes match */}
           <Route path="*" element={<PageNotFound />} />
