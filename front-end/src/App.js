@@ -14,8 +14,19 @@ import KrebbitIcon from './images/icons/frog-57x57.png';
 function App() {
   const [data, setData] = useState([{}])
 
+  // useEffect(() => {
+  //   fetch("/members").then(
+  //     res => res.json()
+  //   ).then(
+  //     data => {
+  //       setData(data)
+  //       console.log(data)
+  //     }
+  //   )
+  // }, [])
+
   useEffect(() => {
-    fetch("/members").then(
+    fetch("/stories").then(
       res => res.json()
     ).then(
       data => {
@@ -34,6 +45,13 @@ function App() {
           <p key={i}>{member}</p>
         ))
       )} */}
+      {/* {(typeof data.stories === 'undefined') ? (
+        <p>Loading...</p>
+      ) : (
+        data.stories.map((story, i) => (
+          <p key={i}>{story.id}</p>
+        ))
+      )} */}
       <Helmet
         titleTemplate="%s | Krebbit"
         defaultTitle="Krebbit">
@@ -42,7 +60,7 @@ function App() {
       <BrowserRouter>
         <MainMenu />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage storiesData={data} />} />
           <Route path="story-page" element={<StoryPage />} />
           <Route path="about-page" element={<AboutPage />} />
           

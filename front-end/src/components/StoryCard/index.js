@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import StoryCardThumbnail from '../../images/thumbnails/elephant.png';
 
-function StoryCard() {
+function StoryCard(props) {
+  console.log("storyCardProps: " + props.storyData);
+  
   return (
     <Card style={{ width: '18rem' }} className="stories-card">
       <Card.Img variant="top" src= { StoryCardThumbnail } />
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title>{(typeof props.storyData === 'undefined') ? 'Loading...' : props.storyData.title}</Card.Title>
         <div className="stories-card-tag-wrapper">
-            <Button variant="outline-secondary" size="sm" className="stories-card-tag">AGE 0-3</Button>{' '}
+            {(typeof props.storyData === 'undefined') ? 'Loading...' : props.storyData.ages.map((age) =>
+              <Button variant="outline-secondary" size="sm" className="stories-card-tag">{age}</Button>
+            )}
             <Button variant="outline-secondary" size="sm" className="stories-card-tag">5 MINS STORIES</Button>{' '}
             <Button variant="outline-secondary" size="sm" className="stories-card-tag">ANIMALS</Button>{' '}
         </div>

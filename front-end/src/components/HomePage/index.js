@@ -5,15 +5,14 @@ import Col from 'react-bootstrap/Col';
 import Banner from '../Banner';
 import MainPageStoriesSection from '../MainPageStoriesSection';
 import MainPageNavigationSection from '../MainPageNavigationSection';
-import StoryPage from '../StoryPage';
 
-function HomePage() {
+function HomePage(props) {
   return (
     <div>
       <Banner />
       <Container fluid className="App-wrapper-container">
         <Row>
-          <Col><MainPageStoriesSection /></Col>
+          <Col><MainPageStoriesSection storiesData={props.storiesData} /></Col>
         </Row>
         <Row>
         <Col></Col>
