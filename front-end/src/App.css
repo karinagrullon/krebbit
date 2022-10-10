@@ -238,6 +238,12 @@ a:hover {
   margin: 40px 0;
 }
 
+.Fixed-div-lenght {
+  font-size: 14px;
+  height: 100px;
+  overflow: scroll;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

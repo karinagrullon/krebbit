@@ -31,7 +31,6 @@ function App() {
     ).then(
       data => {
         setData(data)
-        console.log(data)
       }
     )
   }, [])
