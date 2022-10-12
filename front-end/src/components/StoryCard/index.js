@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import StoryCardThumbnail from '../../images/thumbnails/elephant.png';
+import StoryCardError from '../../images/error-images/image-not-found.jpg';
 
 function readingTime(storyDataFromProps) {
   const text = (typeof storyDataFromProps.storyData === 'undefined') ? 'Loading...' : storyDataFromProps.storyData.body;
@@ -14,7 +15,7 @@ function readingTime(storyDataFromProps) {
 function StoryCard(props) {
   return (
     <Card style={{ width: '18rem' }} className="stories-card">
-      <Card.Img variant="top" src= { StoryCardThumbnail } />
+      <Card.Img variant="top" alt="thumbnail-image-here" src= {(typeof props.storyData === 'undefined' || (props.storyData.imagesLinks.thumbnailUrl === "")) ? StoryCardError : require(`../../images/stories/${props.storyData.imagesLinks.thumbnailUrl}`)} />
       <Card.Body>
         <Card.Title>{(typeof props.storyData === 'undefined') ? 'Loading...' : props.storyData.title}</Card.Title>
         <div className="stories-card-tag-wrapper">

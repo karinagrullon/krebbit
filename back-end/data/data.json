@@ -18,7 +18,7 @@
             "Fairy Tales"
         ],
         "imagesLinks": {
-          "thumbnailUrl": "",
+          "thumbnailUrl": "0/thumbnail/puss-in-boots-thumbail.png",
           "storyImagesUrls": [
             ""
           ]
@@ -46,7 +46,7 @@
             "Fiction"
         ],
         "imagesLinks": {
-          "thumbnailUrl": "",
+          "thumbnailUrl": "1/thumbnail/aladdin-story-thumbnail.png",
           "storyImagesUrls": [
             ""
           ]
@@ -72,7 +72,7 @@
             "Fairy Tales"
         ],
         "imagesLinks": {
-          "thumbnailUrl": "",
+          "thumbnailUrl": "2/thumbnail/sleeping-beauty-thumbnail.png",
           "storyImagesUrls": [
             ""
           ]
@@ -83,7 +83,7 @@
       },
       {
         "id": 3,
-        "title": "Puppy Dreams ",
+        "title": "Puppy Dreams",
         "subtitle": "",
         "authors": [
           "Becky Ross Michael"
@@ -100,7 +100,7 @@
             "Family"
         ],
         "imagesLinks": {
-          "thumbnailUrl": "",
+          "thumbnailUrl": "3/thumbnail/puppy-dream-thumbnail.png",
           "storyImagesUrls": [
             ""
           ]
@@ -126,7 +126,7 @@
             "Family"
         ],
         "imagesLinks": {
-          "thumbnailUrl": "",
+          "thumbnailUrl": "4/thumbnail/two-and-three-thumbnail.jpg",
           "storyImagesUrls": [
             ""
           ]
