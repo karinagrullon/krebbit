@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 
 import StoryCard from '../StoryCard';
 
-function MainPageNavigationSection() {
+function MainPageNavigationSection(props) {
     return (
         <Container className="Main-stories-navigation">
             <Row>

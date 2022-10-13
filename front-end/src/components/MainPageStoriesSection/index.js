@@ -25,10 +25,13 @@ function MainPageStoriesSection(props) {
                         <Col sm={12}><div className="Main-stories-section-title">Latest Stories</div></Col>
                     </Row>
                     <Row>
-                        <Col><StoryCard /></Col>
-                        <Col><StoryCard /></Col>
-                        <Col><StoryCard /></Col>
-                        <Col><StoryCard /></Col>
+                    {(typeof props.storiesData.stories === 'undefined') ? (
+                    <p>Loading...</p>
+                    ) : (
+                        props.storiesData.stories.map(story => (
+                        <Col><StoryCard storyData={story} /></Col>
+                        ))
+                        )}
                     </Row>
                 </Container>
             </div>
