@@ -228,7 +228,7 @@ a:hover {
 .about-page-content {
   font-size: 20px;
   color: rgb(68, 68, 68);
-  padding: 40px 100px;
+  padding: 120px 100px;
 }
 
 .Page-desc {
@@ -242,6 +242,17 @@ a:hover {
   font-size: 14px;
   height: 100px;
   overflow: scroll;
+}
+
+hr.footer-hr {
+  border: 2px solid rgb(156, 156, 156);
+  border-radius: 4px;
+}
+
+.footer-div {
+  height: 150px;
+  margin: 90px auto 20px auto;
+  color: rgb(156, 156, 156);
 }
 
 @keyframes App-logo-spin {

@@ -20,9 +20,6 @@ function AboutPage() {
           </div>
           </Col>
         </Row>
-        <Row>
-        <Col><hr /></Col>
-        </Row>
       </Container>
     </div>
   );

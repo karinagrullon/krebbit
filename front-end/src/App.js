@@ -8,6 +8,7 @@ import MainMenu from './components/MainMenu';
 import HomePage from './components/HomePage';
 import StoryPage from './components/StoryPage';
 import AboutPage from './components/AboutPage';
+import Footer from './components/Footer';
 import PageNotFound from './components/ErrorPages/PageNotFound';
 import KrebbitIcon from './images/icons/frog-57x57.png';
 
@@ -66,6 +67,7 @@ function App() {
           {/* only match this when no other routes match */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   )
