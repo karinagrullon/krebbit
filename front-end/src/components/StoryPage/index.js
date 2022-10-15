@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -25,7 +24,6 @@ class StoryPage extends Component {
     super(props)
     this.state = {
       stories: [],
-      // carouselRef: React.useRef(null),
       playIcon: <FontAwesomeIcon icon={faPlay} />,
       backwardIcon: <FontAwesomeIcon icon={faBackward} />,
       forwardIcon: <FontAwesomeIcon icon={faForward} />,
@@ -33,39 +31,33 @@ class StoryPage extends Component {
       forwardStepIcon: <FontAwesomeIcon icon={faForwardStep} />,
       // previousWordArrowLeftPress: useKeyPress('ArrowLeft'),
       // nextWordArrowRightPress: useKeyPress('ArrowRight')
-      index: 0,  //index which u want to display first
-      direction: null, //direction of the carousel..u need to set it to either 'next' or 'prev' based on user click
+      index: 0,  //index to display first
+      direction: null, //direction of the carousel prev or next
       carouselItemCount: 3
-      // nextIcon: <span className="glyphicon glyphicon-glass"></span>,
-      // prevIcon: <span className="glyphicon glyphicon-glass"></span>
     }
   }
 
-  // componentDidMount() {
-  //   axios.get('http://localhost:5000/stories');
-  // }
+  componentDidMount() {
+    // axios.get('http://localhost:5000/stories');
+    window.addEventListener("keydown", this.handleKeyDown);
+  }
 
-  // const carouselRef = React.useRef(null);
+  handleKeyDown = (event) => {
+    if (event.repeat) {
+      return;
+    }
 
-  // const playIcon = <FontAwesomeIcon icon={faPlay} />
-  // const backwardIcon = <FontAwesomeIcon icon={faBackward} />
-  // const forwardIcon = <FontAwesomeIcon icon={faForward} />
-  // const backwardStepIcon = <FontAwesomeIcon icon={faBackwardStep} />
-  // const forwardStepIcon = <FontAwesomeIcon icon={faForwardStep} />
+    const { key } = event;
 
-  // const previousWordArrowLeftPress = useKeyPress('ArrowLeft');
-  // const nextWordArrowRightPress = useKeyPress('ArrowRight');
-
-  // onPrevPageClick = () => {
-  //   carouselRef.current.prev();
-  // };
-
-  // onNextPageClick = () => {
-  //   carouselRef.current.next();
-  // };
+    if (key === "ArrowRight") {
+      console.log("Right");
+    } else if (key === "ArrowLeft") {
+      console.log("Left");
+    }
+  }
 
   onPrevPageClick = () => {
-    let direction = 'prev';
+    const direction = 'prev';
     let index = this.state.index
     const [min, max] = [0, this.state.carouselItemCount - 1]
 
@@ -74,12 +66,10 @@ class StoryPage extends Component {
     }
 
     if (index > max) {
-      // at max, start from top
       index = 0
     }
 
     if (index < min) {
-      // at min, start from max
       index = max
     }
     this.setState({
@@ -89,7 +79,7 @@ class StoryPage extends Component {
   };
 
   onNextPageClick = () => {
-    let direction = 'next';
+    const direction = 'next';
     let index = this.state.index
     const [min, max] = [0, this.state.carouselItemCount - 1]
 
@@ -98,12 +88,10 @@ class StoryPage extends Component {
     }
 
     if (index > max) {
-      // at max, start from top
       index = 0
     }
 
     if (index < min) {
-      // at min, start from max
       index = max
     }
     this.setState({
@@ -192,14 +180,12 @@ class StoryPage extends Component {
               <Button onClick={this.onNextPageClick} className="Story-player Story-player-next-page">{this.state.forwardStepIcon}</Button>
             </OverlayTrigger>
             </Col>
-            <Col sm={1}>{this.previousWordArrowLeftPress && "left"}{this.nextWordArrowRightPress && "right"}</Col>
           </Row>
           <Row>
           <Col></Col>
           </Row>
           <Row>
             <Col>
-              {/* <Carousel interval={null} variant="dark" fade ref={this.carouselRef}> */}
               <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
                 <Carousel.Item>
                   <img
@@ -251,35 +237,6 @@ class StoryPage extends Component {
       </div>
     );
   }
-}
-// Hook
-function useKeyPress(targetKey) {
-  // State for keeping track of whether key is pressed
-  const [keyPressed, setKeyPressed] = useState(false);
-  // If pressed key is our target key then set to true
-  function downHandler({ key }) {
-    if (key === targetKey) {
-      setKeyPressed(true);
-    }
-  }
-  // If released key is our target key then set to false
-  const upHandler = ({ key }) => {
-    if (key === targetKey) {
-      setKeyPressed(false);
-    }
-  };
-
-  // Add event listeners
-  useEffect(() => {
-    window.addEventListener("keydown", downHandler);
-    window.addEventListener("keyup", upHandler);
-    // Remove event listeners on cleanup
-    return () => {
-      window.removeEventListener("keydown", downHandler);
-      window.removeEventListener("keyup", upHandler);
-    };
-  }, []); // Empty array ensures that effect is only run on mount and unmount
-  return keyPressed;
 }
 
 export default StoryPage;
