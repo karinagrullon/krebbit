@@ -15,6 +15,8 @@ import { faForward } from '@fortawesome/free-solid-svg-icons'
 import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
 
+import StoryCardError from '../../images/error-images/image-not-found.jpg';
+
 import MrMcKay1 from '../../stories/mr-mckay/1.jpeg';
 import MrMcKay2 from '../../stories/mr-mckay/2.jpg';
 import MrMcKay3 from '../../stories/mr-mckay/3.jpg';
@@ -33,7 +35,18 @@ class StoryPage extends Component {
       // nextWordArrowRightPress: useKeyPress('ArrowRight')
       index: 0,  //index to display first
       direction: null, //direction of the carousel prev or next
-      carouselItemCount: 3
+      carouselItemCount: 0,
+      storyId: null,
+      title: null,
+      subtitle: null,
+      authors: [],
+      publishedDate: null,
+      publisher: null,
+      ages: [],
+      topics: [],
+      imagesLinks: null,
+      summary: null,
+      body: null
     }
   }
 
@@ -43,10 +56,18 @@ class StoryPage extends Component {
       this.setState({
         stories: response.data
       })
-      console.log(response.data);
       const id = this.getIdFromURL();
       const base = response.data.stories;
-      console.log(base[id].title);
+
+      this.setState({
+        storyId: base[id].id,
+        title: base[id].title,
+        subtitle: base[id].subtitle,
+        authors: base[id].authors,
+        imagesLinks: base[id].imagesLinks,
+        body: base[id].body,
+        carouselItemCount: base[id].imagesLinks.storyImagesUrls.length
+      })
     })
     .catch(error => {
       console.log(error);
@@ -169,6 +190,17 @@ class StoryPage extends Component {
   }
 
   render() {
+    console.log(this.state.stories);
+    console.log(this.state.storyId);
+    console.log(this.state.title);
+    console.log(this.state.subtitle);
+    console.log(this.state.authors);
+    const imgLinks = this.state.imagesLinks;
+    //console.log(imgLinks.thumbnailUrl);
+    console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.storyImagesUrls);
+    console.log(this.state.body);
+
+    // console.log((this.state.carouselItemCount === 0) ? 0 : this.state.imagesLinks.storyImagesUrls.lenght);
     return (
       <div>
         <Container className="Story-page-wrapper">
@@ -217,8 +249,24 @@ class StoryPage extends Component {
           </Row>
           <Row>
             <Col>
-              <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
+              <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
+              {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) =>
                 <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={require(`../../images/stories/${image}`) }
+                    width="1300"
+                    height="770"
+                    alt="First slide"
+                    key = {`${this.state.storyId}${image}`}
+                  />
+                  <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              )}
+                {/* <Carousel.Item>
                   <img
                     className="d-block w-100"
                     src={ MrMcKay1 }
@@ -260,7 +308,7 @@ class StoryPage extends Component {
                       Praesent commodo cursus magna, vel scelerisque nisl consectetur.
                     </p>
                   </Carousel.Caption>
-                </Carousel.Item>
+                </Carousel.Item> */}
               </Carousel>
             </Col>
           </Row>

@@ -20,7 +20,14 @@
         "imagesLinks": {
           "thumbnailUrl": "0/thumbnail/puss-in-boots-thumbail.png",
           "storyImagesUrls": [
-            ""
+            "0/story-images/puss-in-boots-1.png",
+            "0/story-images/puss-in-boots-2.png",
+            "0/story-images/puss-in-boots-3.png",
+            "0/story-images/puss-in-boots-4.png",
+            "0/story-images/puss-in-boots-5.png",
+            "0/story-images/puss-in-boots-6.png",
+            "0/story-images/puss-in-boots-7.png",
+            "0/story-images/puss-in-boots-8.png"
           ]
         },
         "language": "us",
