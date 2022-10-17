@@ -46,7 +46,8 @@ class StoryPage extends Component {
       topics: [],
       imagesLinks: null,
       summary: null,
-      body: null
+      body: null,
+      storyParagraphs: []
     }
   }
 
@@ -66,6 +67,7 @@ class StoryPage extends Component {
         authors: base[id].authors,
         imagesLinks: base[id].imagesLinks,
         body: base[id].body,
+        storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.split("\\n"),
         carouselItemCount: base[id].imagesLinks.storyImagesUrls.length
       })
     })
@@ -200,6 +202,10 @@ class StoryPage extends Component {
     console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.storyImagesUrls);
     console.log(this.state.body);
 
+    //const storyParagraphs = (this.state.body === null) ? this.state.body : this.state.body.split("\\n");
+    //console.log((storyParagraphs === null) ? 0 : storyParagraphs.length);
+    console.log(this.state.storyParagraphs);
+
     // console.log((this.state.carouselItemCount === 0) ? 0 : this.state.imagesLinks.storyImagesUrls.lenght);
     return (
       <div>
@@ -250,19 +256,20 @@ class StoryPage extends Component {
           <Row>
             <Col>
               <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
-              {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) =>
+              {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
+              {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    src={require(`../../images/stories/${image}`) }
+                    src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
                     width="1300"
                     height="770"
                     alt="First slide"
-                    key = {`${this.state.storyId}${image}`}
+                    key = {`${this.state.storyId}`}
                   />
                   <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h3></h3>
+                    <p>{story}</p>
                   </Carousel.Caption>
                 </Carousel.Item>
               )}
