@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import StoryCardThumbnail from '../../images/thumbnails/elephant.png';
 import StoryCardError from '../../images/error-images/image-not-found.jpg';
+import { Link } from 'react-router-dom';
 
 function readingTime(storyDataFromProps) {
   const text = (typeof storyDataFromProps.storyData === 'undefined') ? 'Loading...' : storyDataFromProps.storyData.body;
@@ -13,6 +13,7 @@ function readingTime(storyDataFromProps) {
 }
 
 function StoryCard(props) {
+  let storyURL = `/story-page?storyId=${(typeof props.storyData === 'undefined') ? -1 : props.storyData.id}`;
   return (
     <Card style={{ width: '18rem' }} className="stories-card">
       <Card.Img variant="top" alt="thumbnail-image-here" src= {(typeof props.storyData === 'undefined' || (props.storyData.imagesLinks.thumbnailUrl === "")) ? StoryCardError : require(`../../images/stories/${props.storyData.imagesLinks.thumbnailUrl}`)} />
@@ -34,7 +35,9 @@ function StoryCard(props) {
           {(typeof props.storyData === 'undefined') ? 'Loading...' : props.storyData.summary}
           </div>
         </Card.Text>
-        <Button className="stories-card-button">Read</Button>
+        <Link to={storyURL}>
+          <Button className="stories-card-button">Read</Button>
+        </Link>
       </Card.Body>
     </Card>
   );

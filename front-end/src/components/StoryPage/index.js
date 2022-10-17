@@ -37,8 +37,39 @@ class StoryPage extends Component {
     }
   }
 
+  getStories = () => {
+    axios.get('/stories')
+    .then(response => {
+      this.setState({
+        stories: response.data
+      })
+      console.log(response.data);
+      const id = this.getIdFromURL();
+      const base = response.data.stories;
+      console.log(base[id].title);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  getIdFromURL = () => {
+    let result = []; // []
+    const stringArray = window.location.search.substring(1).split("&"); // ["id=number", "another=string"]
+  
+    stringArray.forEach((string) => {
+      result.push(string.split("="));
+    }); // [[id, number], [other, string], [another, string]
+  
+    result = Object.fromEntries(result); // {id: number, another: string}
+
+    return result.storyId ?? 0; // number (or 0 if undefined)
+  }
+
   componentDidMount() {
-    // axios.get('http://localhost:5000/stories');
+    // let StoryURL = `/story-page?storyId=`;
+    this.getStories();
+
     window.addEventListener("keydown", this.handleKeyDown);
   }
 
