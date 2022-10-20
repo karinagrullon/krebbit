@@ -255,68 +255,80 @@ class StoryPage extends Component {
           </Row>
           <Row>
             <Col>
-              <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
-              {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
-              {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
-                    width="1300"
-                    height="770"
-                    alt="First slide"
-                    key = {`${this.state.storyId}`}
-                  />
-                  <Carousel.Caption>
-                    <h3></h3>
-                    <p>{story}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              )}
-                {/* <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={ MrMcKay1 }
-                    width="1300"
-                    height="770"
-                    alt="First slide"
-                  />
-                  <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={ MrMcKay2 }
-                    width="1300"
-                    height="770"
-                    alt="Second slide"
-                  />
+              <div class="Carousel-wrapper">
+                <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
+                {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
+                {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
+                  <Carousel.Item>
+                    <Container>
+                      <Row>
+                        <Col sm="5">
+                          <div className="Story-image-wrapper">
+                            <img
+                              className="d-block w-100"
+                              src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
+                              width="1300"
+                              height="770"
+                              alt="First slide"
+                              key = {`${this.state.storyId}`}
+                            />
+                          </div>
+                        </Col>
+                        <Col sm="7">
+                        <Carousel.Caption className="Story-text-wrapper">
+                          <h3></h3>
+                          <p>{story}</p>
+                        </Carousel.Caption>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </Carousel.Item>
+                )}
+                  {/* <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={ MrMcKay1 }
+                      width="1300"
+                      height="770"
+                      alt="First slide"
+                    />
+                    <Carousel.Caption>
+                      <h3>First slide label</h3>
+                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={ MrMcKay2 }
+                      width="1300"
+                      height="770"
+                      alt="Second slide"
+                    />
 
-                  <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={ MrMcKay3 }
-                    width="1300"
-                    height="770"
-                    alt="Third slide"
-                  />
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={ MrMcKay3 }
+                      width="1300"
+                      height="770"
+                      alt="Third slide"
+                    />
 
-                  <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item> */}
-              </Carousel>
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>
+                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                      </p>
+                    </Carousel.Caption>
+                  </Carousel.Item> */}
+                </Carousel>
+              </div>
             </Col>
           </Row>
         </Container>
