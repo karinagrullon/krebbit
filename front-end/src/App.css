@@ -279,11 +279,15 @@ hr.footer-hr {
 }
 
 .Story-text-wrapper {
+  background-color: rgb(225, 248, 194);
+  font-size: 30px;
   position: relative;
   float: right;
   left: -10px;
   margin: 0;
   text-align: justify;
+  width: 100%;
+  padding: 50px 30px;
 }
 
 @keyframes App-logo-spin {

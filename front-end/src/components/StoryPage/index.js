@@ -67,7 +67,7 @@ class StoryPage extends Component {
         authors: base[id].authors,
         imagesLinks: base[id].imagesLinks,
         body: base[id].body,
-        storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.split("\\n"),
+        storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g),
         carouselItemCount: base[id].imagesLinks.storyImagesUrls.length
       })
     })
