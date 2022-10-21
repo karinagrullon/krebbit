@@ -200,6 +200,7 @@ class StoryPage extends Component {
     const imgLinks = this.state.imagesLinks;
     //console.log(imgLinks.thumbnailUrl);
     console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.storyImagesUrls);
+    console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.thumbnailUrl);
     console.log(this.state.body);
 
     //const storyParagraphs = (this.state.body === null) ? this.state.body : this.state.body.split("\\n");
@@ -256,8 +257,27 @@ class StoryPage extends Component {
           <Row>
             <Col>
               <div class="Carousel-wrapper">
-                <Carousel interval={null} variant="dark" fade activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
+                <Carousel interval={null} variant="dark" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
                 {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
+                <Carousel.Item>
+                  <div className="Story-cover-image-wrapper">
+                    <img
+                      className="d-block w-100"
+                      src={require(`../../images/stories/${(this.state.imagesLinks === null) ? '0/thumbnail/puss-in-boots-thumbail.png' : imgLinks.thumbnailUrl}`)}
+                      width="1300"
+                      height="770"
+                      alt="First slide"
+                      key = {`${this.state.storyId}`}
+                    />
+                  
+                  <Carousel.Caption className="Story-cover-text-wrapper">
+                    <h3 className="Story-cover-title">{(this.state.title === null) ? "Loading..." : this.state.title}</h3>
+                    {(this.state.authors === []) ? [] : this.state.authors.map((autor) => 
+                        <p>{autor}</p>
+                    )}
+                  </Carousel.Caption>
+                </div>
+                  </Carousel.Item>
                 {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
                   <Carousel.Item>
                     <Container>
