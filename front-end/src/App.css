@@ -286,12 +286,15 @@ hr.footer-hr {
   margin: 0;
   text-align: justify;
   width: 100%;
-  padding: 50px 30px;
+  padding: 25px 30px;
+}
+
+.Story-cover-image-wrapper {
+  background-color: white;
 }
 
 .Story-cover-image-wrapper img {
   height: 500px;
-  width: 200px;
 }
 
 .Story-cover-title {
@@ -302,6 +305,19 @@ hr.footer-hr {
 
 .Story-cover-text-wrapper {
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.Story-cover-text-publisher {
+  font-size: 12px;
+  color: #565757;
+}
+
+.Story-text-title-wrapper {
+  font-size: 14px;
+  letter-spacing: .2rem;
+  text-align: center;
+  padding: 10px 0;
+  color: #565757;
 }
 
 @keyframes App-logo-spin {

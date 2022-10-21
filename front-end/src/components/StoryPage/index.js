@@ -64,6 +64,7 @@ class StoryPage extends Component {
         storyId: base[id].id,
         title: base[id].title,
         subtitle: base[id].subtitle,
+        publisher: base[id].publisher,
         authors: base[id].authors,
         imagesLinks: base[id].imagesLinks,
         body: base[id].body,
@@ -258,52 +259,58 @@ class StoryPage extends Component {
             <Col>
               <div class="Carousel-wrapper">
                 <Carousel interval={null} variant="dark" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
-                {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
-                <Carousel.Item>
-                  <div className="Story-cover-image-wrapper">
-                    <img
-                      className="d-block w-100"
-                      src={require(`../../images/stories/${(this.state.imagesLinks === null) ? '0/thumbnail/puss-in-boots-thumbail.png' : imgLinks.thumbnailUrl}`)}
-                      width="1300"
-                      height="770"
-                      alt="First slide"
-                      key = {`${this.state.storyId}`}
-                    />
-                  
-                  <Carousel.Caption className="Story-cover-text-wrapper">
-                    <h3 className="Story-cover-title">{(this.state.title === null) ? "Loading..." : this.state.title}</h3>
-                    {(this.state.authors === []) ? [] : this.state.authors.map((autor) => 
-                        <p>{autor}</p>
-                    )}
-                  </Carousel.Caption>
-                </div>
-                  </Carousel.Item>
-                {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
+                  {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
                   <Carousel.Item>
-                    <Container>
-                      <Row>
-                        <Col sm="5">
-                          <div className="Story-image-wrapper">
-                            <img
-                              className="d-block w-100"
-                              src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
-                              width="1300"
-                              height="770"
-                              alt="First slide"
-                              key = {`${this.state.storyId}`}
-                            />
-                          </div>
-                        </Col>
-                        <Col sm="7">
-                        <Carousel.Caption className="Story-text-wrapper">
-                          <h3></h3>
-                          <p>{story}</p>
-                        </Carousel.Caption>
-                        </Col>
-                      </Row>
+                  <Container>
+                    <Row>
+                      <Col sm="4"></Col>
+                      <Col sm="4">
+                    <div className="Story-cover-image-wrapper">
+                      <img
+                        className="d-block w-100"
+                        src={require(`../../images/stories/${(this.state.imagesLinks === null) ? 'error-images/image-not-found.jpg' : imgLinks.thumbnailUrl}`)}
+                        alt="First slide"
+                        key = {`${this.state.storyId}`}
+                      />
+                    
+                      <Carousel.Caption className="Story-cover-text-wrapper">
+                        <h3 className="Story-cover-title">{(this.state.title === null) ? "Loading..." : this.state.title}</h3>
+                        {(this.state.authors === []) ? [] : this.state.authors.map((autor) => 
+                            <p>{autor}</p>
+                        )}
+                        <div className="Story-cover-text-publisher">{(this.state.publisher === null ? 'Loading...' : this.state.publisher)}</div>
+                      </Carousel.Caption>
+                    </div>
+                    </Col>
+                    <Col sm="4"></Col>
+                    </Row>
                     </Container>
-                  </Carousel.Item>
-                )}
+                    </Carousel.Item>
+                  {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
+                    <Carousel.Item>
+                      <Container>
+                        <Row>
+                          <Col sm="4">
+                            <div className="Story-image-wrapper">
+                              <img
+                                className="d-block w-100"
+                                src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
+                                alt="First slide"
+                                key = {`${this.state.storyId}`}
+                              />
+                            </div>
+                          </Col>
+                          <Col sm="8">
+                          <Carousel.Caption className="Story-text-wrapper">
+                            <h3></h3>
+                            <div className="Story-text-title-wrapper">{(this.state.title === null) ? "Loading..." : this.state.title}</div>
+                            <p>{story}</p>
+                          </Carousel.Caption>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </Carousel.Item>
+                  )}
                   {/* <Carousel.Item>
                     <img
                       className="d-block w-100"
