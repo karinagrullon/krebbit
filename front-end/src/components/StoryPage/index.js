@@ -14,6 +14,7 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons'
 import { faForward } from '@fortawesome/free-solid-svg-icons'
 import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
+import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import StoryCardError from '../../images/error-images/image-not-found.jpg';
 
@@ -31,11 +32,13 @@ class StoryPage extends Component {
       forwardIcon: <FontAwesomeIcon icon={faForward} />,
       backwardStepIcon: <FontAwesomeIcon icon={faBackwardStep} />,
       forwardStepIcon: <FontAwesomeIcon icon={faForwardStep} />,
+      repeatIcon: <FontAwesomeIcon icon={faRepeat} />,
       // previousWordArrowLeftPress: useKeyPress('ArrowLeft'),
       // nextWordArrowRightPress: useKeyPress('ArrowRight')
       index: 0,  //index to display first
       direction: null, //direction of the carousel prev or next
       carouselItemCount: 0,
+      storyImagesCount: 0,
       storyId: null,
       title: null,
       subtitle: null,
@@ -69,7 +72,8 @@ class StoryPage extends Component {
         imagesLinks: base[id].imagesLinks,
         body: base[id].body,
         storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g),
-        carouselItemCount: base[id].imagesLinks.storyImagesUrls.length
+        carouselItemCount: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g).length + 2,
+        storyImagesCount: base[id].imagesLinks.storyImagesUrls.length
       })
     })
     .catch(error => {
@@ -292,12 +296,14 @@ class StoryPage extends Component {
                         <Row>
                           <Col sm="4">
                             <div className="Story-image-wrapper">
+                            {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
                               <img
                                 className="d-block w-100"
                                 src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
                                 alt="First slide"
                                 key = {`${this.state.storyId}`}
                               />
+                            {/* )} */}
                             </div>
                           </Col>
                           <Col sm="8">
@@ -311,49 +317,20 @@ class StoryPage extends Component {
                       </Container>
                     </Carousel.Item>
                   )}
-                  {/* <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={ MrMcKay1 }
-                      width="1300"
-                      height="770"
-                      alt="First slide"
-                    />
-                    <Carousel.Caption>
-                      <h3>First slide label</h3>
-                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
                   <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={ MrMcKay2 }
-                      width="1300"
-                      height="770"
-                      alt="Second slide"
-                    />
-
-                    <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={ MrMcKay3 }
-                      width="1300"
-                      height="770"
-                      alt="Third slide"
-                    />
-
-                    <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                      </p>
-                    </Carousel.Caption>
-                  </Carousel.Item> */}
+                  <Container>
+                    <Row>
+                      <Col>
+                      <div className="Story-end-wrapper">
+                        The End
+                      </div>
+                      <div className="Story-repeat-icon">
+                          {this.state.repeatIcon}
+                        </div>
+                      </Col>
+                    </Row>
+                    </Container>
+                    </Carousel.Item>
                 </Carousel>
               </div>
             </Col>

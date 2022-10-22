@@ -320,6 +320,25 @@ hr.footer-hr {
   color: #565757;
 }
 
+.Story-end-wrapper {
+  font-size: 72px;
+  font-family: cursive;
+  color: #44538C;
+  text-align: center;
+  height: 500px;
+  line-height: 500px;
+  margin: auto;
+}
+
+.Story-repeat-icon {
+  font-size: 38px;
+  position: relative;
+  float: right;
+  margin: 0 40px 0 0;
+  top: -170px;
+  color: rgba(68, 83, 140, 0.5);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
