@@ -278,7 +278,7 @@ hr.footer-hr {
 }
 
 .Story-text-wrapper {
-  background-color: rgb(225, 248, 194);
+  /* background-color: rgb(225, 248, 194); */
   font-size: 30px;
   position: relative;
   float: right;
@@ -287,6 +287,7 @@ hr.footer-hr {
   text-align: justify;
   width: 100%;
   padding: 25px 30px;
+  min-height: 540px;;
 }
 
 .Story-cover-image-wrapper {

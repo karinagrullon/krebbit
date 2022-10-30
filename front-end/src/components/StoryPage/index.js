@@ -39,6 +39,7 @@ class StoryPage extends Component {
       direction: null, //direction of the carousel prev or next
       carouselItemCount: 0,
       storyImagesCount: 0,
+      imageUrl: null,
       storyId: null,
       title: null,
       subtitle: null,
@@ -73,7 +74,7 @@ class StoryPage extends Component {
         body: base[id].body,
         storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g),
         carouselItemCount: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g).length + 2,
-        storyImagesCount: base[id].imagesLinks.storyImagesUrls.length
+        storyImagesCount: base[id].imagesLinks.storyImages.length
       })
     })
     .catch(error => {
@@ -197,6 +198,7 @@ class StoryPage extends Component {
   }
 
   render() {
+    let imgUrl = null;
     console.log(this.state.stories);
     console.log(this.state.storyId);
     console.log(this.state.title);
@@ -290,20 +292,30 @@ class StoryPage extends Component {
                     </Row>
                     </Container>
                     </Carousel.Item>
-                  {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story) =>
+                  {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story, index) =>
                     <Carousel.Item>
                       <Container>
                         <Row>
                           <Col sm="4">
+                          {(imgLinks.storyImages.map((image) => image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl))}
                             <div className="Story-image-wrapper">
                             {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
                               <img
                                 className="d-block w-100"
-                                src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
+                                // src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
+                                src={imgUrl === null || imgUrl === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${imgUrl}`)}
                                 alt="First slide"
                                 key = {`${this.state.storyId}`}
                               />
                             {/* )} */}
+                            {console.log(story)}
+                            {console.log(imgLinks.storyImages.map((image) => image.range.includes(index)))}
+                            {console.log(imgLinks.storyImages.map((image) => image.range))}
+                            {console.log(index)}
+                            {console.log(imgLinks.storyImages.map((image) => image.url))}
+                            
+                            {console.log(imgUrl)}
+                            {/* {console.log((imgLinks.storyImages.map((image) => image.range.includes(index) ? `../../images/stories/${image.url}` : 'error-images/image-not-found.jpg')))} */}
                             </div>
                           </Col>
                           <Col sm="8">

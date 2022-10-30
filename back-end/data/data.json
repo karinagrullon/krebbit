@@ -18,17 +18,41 @@
     "Fairy Tales"
     ],
     "imagesLinks": {
-    "thumbnailUrl": "0/thumbnail/puss-in-boots-thumbail.png",
-    "storyImagesUrls": [
-    "0/story-images/puss-in-boots-1.png",
-    "0/story-images/puss-in-boots-2.png",
-    "0/story-images/puss-in-boots-3.png",
-    "0/story-images/puss-in-boots-4.png",
-    "0/story-images/puss-in-boots-5.png",
-    "0/story-images/puss-in-boots-6.png",
-    "0/story-images/puss-in-boots-7.png",
-    "0/story-images/puss-in-boots-8.png"
-    ]
+      "thumbnailUrl": "0/thumbnail/puss-in-boots-thumbail.png",
+      "storyImages": [
+        {
+          "url": "0/story-images/puss-in-boots-1.png",
+          "range": [0,1]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-2.png",
+          "range": [2,3]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-3.png",
+          "range": [4,5]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-4.png",
+          "range": [6,7]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-5.png",
+          "range": [8,9]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-6.png",
+          "range": [10,11]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-7.png",
+          "range": [12,13]
+        },
+        {
+          "url": "0/story-images/puss-in-boots-8.png",
+          "range": [14,15]
+        }
+      ]
     },
     "language": "us",
     "summary": "Puss in Boots is a fairy tale about an anthropomorphic cat who uses trickery and deceit to gain power, wealth, and the hand of a princess in marriage for his penniless and low-born master.",
@@ -54,10 +78,41 @@
     ],
     "imagesLinks": {
     "thumbnailUrl": "1/thumbnail/aladdin-story-thumbnail.png",
-    "storyImagesUrls": [
-    ""
+    "storyImages": [
+      {
+        "url": "0/story-images/puss-in-boots-1.png",
+        "range": [1,2]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-2.png",
+        "range": [3,4]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-3.png",
+        "range": [5,6]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-4.png",
+        "range": [7,8]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-5.png",
+        "range": [9,10]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-6.png",
+        "range": [11]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-7.png",
+        "range": [12]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-8.png",
+        "range": [13]
+      }
     ]
-    },
+  },
     "language": "us",
     "summary": "Aladdin is a lovable street urchin who meets Princess Jasmine, the beautiful daughter of the sultan of Agrabah. While visiting her exotic palace, Aladdin stumbles upon a magic oil lamp that unleashes a powerful, wisecracking, larger-than-life genie. As Aladdin and the genie start to become friends, they must soon embark on a dangerous mission to stop the evil sorcerer Jafar from overthrowing young Jasmine's kingdom.",
     "body": "Once there lived a poor widow and her son, Aladdin. One day, Aladdin's uncle, Mustafa, came to visit them. He said, \"Sister, why don't you let Aladdin come and work for me?\" They agreed and Mustafa took Aladdin along with him. They walked in the desert and came to a cave. The cave was full of riches and treasures but Mustafa was afraid to go inside. He wanted Aladdin to go in and get him the treasures instead. \"Go inside,\" commanded Mustafa, \"and find me the jewels. You will also find a lamp. Bring it to me.\" Aladdin went inside and found more riches than he could ever imagine. He found a beautiful ring and wore it on his finger. He also collected as many gems as he could, but before he could come out of the cave, Mustafa said, \"Quick! Just hand me all, the jewels and the lamp!\" Aladdin refused. Angry at the refusal, his cruel uncle blocked the entrance of the cave and left. Aladdin sat in the dark and cried. Then he saw the old lamp and decided to light it. While cleaning it, he rubbed the lamp and out came a genie! \"Master, I shall grant you three wishes,\" he said. Aladdin said, \"Take me home!\" In seconds, Aladdin was with his mother, counting the gems he had brought from the cave. Aladdin also brought the ring along with him and when he rubbed it, out came another genie! \"Master, I shall grant you three wishes!\" said the genie. \"Make us rich and happy!\" said Aladdin. And Aladdin and his mother lived happily. One day, Aladdin saw the sultan’s daughter and fell in love with her. He went to the palace with gems and asked for her hand in marriage. The king agreed to this. After marriage, Aladdin showered the princess with all the riches and gave her a huge palace to live in. When the sultan died, Aladdin ruled the kingdom. He was just and kind hearted and everybody was happy under his rule. Meanwhile, Mustafa came to know how Aladdin found the magic lamp and became rich. He wanted to take the lamp back. So, one day, when Aladdin was away, Mustafa came to the palace dressed as a trader. He cried out, \"Get new lamps for old ones! New lamps for old!\" Hearing this, the princess took out the magic lamp and gave it to him. She did not know that the old lamp was indeed magical. She bought a shiny new lamp instead. Mustafa gladly took the lamp and went away. He then commanded the genie, \"Send Aladdin's entire palace into the deserts in Africa!\" And saying this, Mustafa, along with the princess in the palace, were sent to Africa. Aladdin, on coming back, found his wife and house missing. He searched for the palace for three long days. Finally, he rubbed his magic ring and asked the genie, \"Please take me to my princess!\" The genie agreed. When he met his wife, Aladdin and the princess decided to trick Mustafa. One night, the princess said to Mustafa, \"I don't think Aladdin will ever find me here! I might as well live as your slave for I am certain he is dead now!\" Mustafa was very happy and ordered for a feast. During the feast, the princess got Mustafa drunk and he fell into a deep sleep. In the meantime, the princess took the magic lamp to Aladdin. Together, they asked the genie of the lamp to take the entire palace back to Aladdin's kingdom. The genie then killed Mustafa and Aladdin and the princess lived happily ever after."
@@ -80,10 +135,41 @@
     ],
     "imagesLinks": {
     "thumbnailUrl": "2/thumbnail/sleeping-beauty-thumbnail.png",
-    "storyImagesUrls": [
-    ""
+    "storyImages": [
+      {
+        "url": "0/story-images/puss-in-boots-1.png",
+        "range": [0,1]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-2.png",
+        "range": [2,3]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-3.png",
+        "range": [4,5]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-4.png",
+        "range": [6,7]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-5.png",
+        "range": [8,9]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-6.png",
+        "range": [10,11]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-7.png",
+        "range": [12,13]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-8.png",
+        "range": [14,15]
+      }
     ]
-    },
+  },
     "language": "us",
     "summary": "An evil fairy curses the princess, pronouncing that she will die when she is pricked by a spindle.",
     "body": "Once upon a time there lived a good king and his queen. They had no children for many years and were very sad. Then one day, the queen gave birth to a lovely baby girl and the whole kingdom was happy. There was a grand celebration and all the fairies in the kingdom were invited. But the king forgot to invite an old fairy. She came to the celebrations but was very angry. Soon it was time to gift the baby with special wishes. The good fairies wished her well and said, \"May she grow to be the most beautiful girl in the world! She will sing sweetly and dance so well! She will live happily!\" All the fairies blessed the baby and gave her beautiful gifts. When it was the old fairy's turn, she said, \"When the baby is sixteen she will touch a spindle, and die!\" The king and queen were shocked and begged the fairy to forgive them and take her words back but the fairy refused to do so. When the other fairies saw the king and queen crying, they said, \"We cannot undo what the old fairy has spoken. But we certainly can make it different. Your child shall not die when she touches the spindle. But she will fall into a deep sleep for a hundred years. Then, a prince will come along and wake her up.\" Hearing this, the king and the queen were relieved. The king forbade everyone from spinning so that the princess would never touch a spindle. The princess grew up to be a kind girl and helped people in need. Everybody loved her. Years passed. When the princess was sixteen years old, she was walking in the woods when she saw an old lady spinning. \"What is this? May I try?\" she asked The old lady said, \"Of course, my pretty little child!\" And the princess sat down to spin. But the moment she touched the spindle, she fell to the floor in a deep slumber. The old lady took her back to the palace and the king and queen laid her on her bed and tucked her in. They were very sad and called the good fairies. The fairies felt sorry for them and cast a spell over the whole kingdom so that when the princess woke up after a hundred years, she would not be alone in the palace. Everyone, including the guards and the servants and the animals were now fast asleep. For a hundred years, they all slept soundly. A hundred years passed. There came a prince from a far off land. He, along with his servants, went deep into the forest and crossed many rivers. Once the prince lost his way and was separated from the rest of the travellers. He came to the sleeping kingdom and was amazed. The guards, the servants, the cats and the cows were all fast asleep and snoring. The prince reached the palace and entered it. No one moved. The prince then found the sleeping princess. She was such a beautiful girl that the prince kissed her. By that time, a hundred years had passed by and everyone was waking up, one by one. The princess yawned and opened her eyes. She saw the prince and smiled. She asked him \"Are you my prince?\" He was happy to hear her speak. The prince and the princess fell in love with each other. The prince wanted to marry the princess so they went to ask for permission from their parents. The king and the queen arranged for a royal wedding. All the clothes the bride wore were a hundred years old, but she looked beautiful. Soon, they were married and then they rode away to the prince's kingdom far, far away."
@@ -108,10 +194,41 @@
     ],
     "imagesLinks": {
     "thumbnailUrl": "3/thumbnail/puppy-dream-thumbnail.png",
-    "storyImagesUrls": [
-    ""
+    "storyImages": [
+      {
+        "url": "0/story-images/puss-in-boots-1.png",
+        "range": [1,2]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-2.png",
+        "range": [3,4]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-3.png",
+        "range": [5,6]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-4.png",
+        "range": [7,8]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-5.png",
+        "range": [9,10]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-6.png",
+        "range": [11]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-7.png",
+        "range": [12]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-8.png",
+        "range": [13]
+      }
     ]
-    },
+  },
     "language": "us",
     "summary": "A dark puppy is broght to the kids home.",
     "body": "Dad walked into the kitchen, followed by the scent of a cool autumn afternoon. He placed bags of groceries on the counter, which Mom started to unload. \"Yum,\" she said, \"this will be great for dinner.\" Sister checked the bags, hoping for a special treat. But Brother stood still as stone, gazing at his father. \"Um, Dad…why's your jacket moving like that?\"With a smile, Dad unzipped his coat. Nestled in the pocket of his shirt lay a little, black creature. Speechless at first, everyone stared. \"You didn't,\" Mom finally said.\"A puppy?\" guessed Brother.Dad lifted the wiggly mass of fur from his pocket and set it on the dark kitchen rug. \"Oooh!\" yelled Sister in delight. At the sound of her loud voice, the tiny animal froze.\"I think you've scared him,\" said Mom, reaching to pick up the small dog. As she did, a patch of wet rug was revealed from underneath him. \"Oops,\" Dad said. \"He had a boo-boo on the floor. Looks like we've got some potty training to do. I couldn't resist. Someone was selling puppies from the back of their pickup outside the store. It was either that or off to the shelter. When I walked over, this little guy practically jumped into my arms.\" \"I can just imagine,\" Mom said with a grin. \"What's his name?\" Brother asked. \"That's for you and your sister to figure out.\" \"That's for you and your sister to figure out.\" The afternoon passed in a whirl of fun. Mom set up a feeding and watering area in the kitchen. Dad placed a comfortable, new pet bed in a corner of the living room. They all took turns guiding the puppy outside to avoid more potty accidents. \"Chester might be a good name,\" suggested Mom, while they watched the puppy nap. \"Blackie would fit him because of his color,\" Brother said. \"When I was a kid, we had a dog named Roamer,\" said Dad. \"Maybe that could be his name.\" \"Not sure,\" said Sister. The puppy yipped. \"I'll take him outside this time, while I'm thinking about a good name.\""
@@ -134,10 +251,41 @@
     ],
     "imagesLinks": {
     "thumbnailUrl": "4/thumbnail/two-and-three-thumbnail.jpg",
-    "storyImagesUrls": [
-    ""
+    "storyImages": [
+      {
+        "url": "0/story-images/puss-in-boots-1.png",
+        "range": [1,2]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-2.png",
+        "range": [3,4]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-3.png",
+        "range": [5,6]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-4.png",
+        "range": [7,8]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-5.png",
+        "range": [9,10]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-6.png",
+        "range": [11]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-7.png",
+        "range": [12]
+      },
+      {
+        "url": "0/story-images/puss-in-boots-8.png",
+        "range": [13]
+      }
     ]
-    },
+  },
     "language": "us",
     "summary": "A story that took please in the northern hilly region in India.",
     "body": "In a small village in Himachal (A state in northern hilly region in India.) lived an old man and his wife. Both were over seventy and both loved one another. Only five other families lived in this tiny village. One cold winter evening the old man and his wife were sitting inside their hut. Outside it was snowing. Suddenly the old man looked up and said, \"I wish we could have some pakodas (Salty snacks prepared by frying vegetable mixed in gram flour batter). I very much feel like eating pakodas today.\" \"I'll see if there's any besan (Gram flour) in the house,\" his wife replied. She got up and opened the tin of besan. \"Oh, there's only a little bit here,\" she said. \"It's too cold to go out and buy more. So I shall make pakodas from this little bit of besan.\" The old woman lighted the fire and made pakodas. She made five. She gave her husband three pakodas and herself took two. But the old man would not take the palcodas. How can I eat three when you are getting only two ?\" he said. \"Take one pakoda from me.\" \"Two pakodas are enough for me,\" his wife replied. \"It is you who asked for them. You take three now. Tomorrow I shall get more besan from the shop and make pakodas. I can then take one more than you.\" They kept arguing like this all evening. Night fell, but they had still not eaten the pakodas. At last they agreed on a plan. \"It is quite late,\" they said. \"So let us go to sleep now. Tomorrow morning, the one who gets up first will have to eat three pakodas.\" So they both went to sleep. Morning came. But still they kept lying in bed, eyes closed. Each wanted the other to get up first, for each wanted the other one to have three pakodas. It grew quite late and the sun rose high in the sky. But still they would not get up. The neighbours saw that their door was still closed. They got worried. \"What is the matter with the old couple ?\" they said. \"They still have not got up. Let us go and find out if they are all right.\" The neighbours went and knocked at the door. They called out to the old couple, but there was no reply from inside. Then the neighbours hammered at the door with their fists. But still the door remained closed. Now they got really worried. \"We shall have to break the door,\" they said. \"The old people may be ill.\" So they brought an axe and broke open the door. They then went in and saw the old man and his wife lying on their cots with eyes closed. \"Oh no,\" they said. \"They are both dead! Let us take them to the burning place.\" When the old man heard this he shot up in alarm. He realised that they would both be burnt alive. \"Oh very well,\" he cried. \"I shall eat three andyou can eat the other two.\" On hearing this the old woman also shot up and cried, \"That's what I've been telling you all this time. If you had listened to me, we could have eaten them last night. We wouldn't have gone hungry all night then. But we can eat them now.\" When the neighbours heard this they were alarmed. They ran out of the door shouting. \"Run! Run for your life! The ghosts of the old man and his wife are after us! They are going to eat us all up! The old man's ghost will eat up three families, and his wife's ghost will eat up the other two families in the village !\" The old man and his wife were surprised. They ran after the neighbours to tell them that they were not ghosts. At this the neighbours were even more frightened. They ran faster still. Much later the old man and his wife told the neighbours about the pakodas. When they heard this, they burst out laughing. That day the old woman brought more besan from the shop and made lots of pakodas. Then she invited everyone in the village for a feast of pakodas. You see, she was sorry that she and her old man had given everyone such a fright."
