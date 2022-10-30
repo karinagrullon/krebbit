@@ -197,8 +197,16 @@ class StoryPage extends Component {
     });
   }
 
-  render() {
+  handleStoryImage = (index) => {
     let imgUrl = null;
+    this.state.imagesLinks.storyImages.map((image) => 
+      image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl 
+    )
+    return imgUrl;
+  }
+  
+
+  render() {
     console.log(this.state.stories);
     console.log(this.state.storyId);
     console.log(this.state.title);
@@ -297,24 +305,21 @@ class StoryPage extends Component {
                       <Container>
                         <Row>
                           <Col sm="4">
-                          {(imgLinks.storyImages.map((image) => image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl))}
                             <div className="Story-image-wrapper">
-                            {/* {(this.state.imagesLinks === null) ? StoryCardError : imgLinks.storyImagesUrls.map((image) => */}
                               <img
                                 className="d-block w-100"
-                                // src={require(`../../images/stories/0/story-images/puss-in-boots-1.png`) }
-                                src={imgUrl === null || imgUrl === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${imgUrl}`)}
+                                src={this.handleStoryImage(index) === null || this.handleStoryImage(index) === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${this.handleStoryImage(index)}`)}
                                 alt="First slide"
                                 key = {`${this.state.storyId}`}
                               />
                             {/* )} */}
                             {console.log(story)}
                             {console.log(imgLinks.storyImages.map((image) => image.range.includes(index)))}
-                            {console.log(imgLinks.storyImages.map((image) => image.range))}
+                            {/* {console.log(imgLinks.storyImages.map((image) => image.range))} */}
                             {console.log(index)}
-                            {console.log(imgLinks.storyImages.map((image) => image.url))}
-                            
-                            {console.log(imgUrl)}
+                            {/* {console.log((imgLinks.storyImages.map((image) => image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl))[0])} */}
+                            {/* {console.log(imgLinks.storyImages.map((image) => image.url))} */}
+
                             {/* {console.log((imgLinks.storyImages.map((image) => image.range.includes(index) ? `../../images/stories/${image.url}` : 'error-images/image-not-found.jpg')))} */}
                             </div>
                           </Col>

@@ -81,11 +81,11 @@
     "storyImages": [
       {
         "url": "0/story-images/puss-in-boots-1.png",
-        "range": [1,2]
+        "range": [0,1]
       },
       {
         "url": "0/story-images/puss-in-boots-2.png",
-        "range": [3,4]
+        "range": [2,3]
       },
       {
         "url": "0/story-images/puss-in-boots-3.png",
