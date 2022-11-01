@@ -314,7 +314,6 @@ class StoryPage extends Component {
                             <h3></h3>
                             <div className="Story-text-title-wrapper">{(this.state.title === null) ? "Loading..." : this.state.title}</div>
                             <p>{story}</p>
-                            {this.fromTextToSpeech()}
                           </Carousel.Caption>
                           </Col>
                         </Row>
