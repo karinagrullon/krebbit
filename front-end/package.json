@@ -2,6 +2,7 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://main.d2pj3l0hsjnkp7.amplifyapp.com/#/",
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@fontsource/bubblegum-sans": "^4.5.8",
