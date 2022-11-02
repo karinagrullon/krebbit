@@ -74,18 +74,6 @@ class StoryPage extends Component {
     });
   }
 
-  fromTextToSpeech = () => {
-    axios.post('/stories', {
-      storyParagraphs: this.state.storyParagraphs
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
   getIdFromURL = () => {
     let result = []; // []
     const stringArray = window.location.search.substring(1).split("&"); // ["id=number", "another=string"]
@@ -119,6 +107,7 @@ class StoryPage extends Component {
     }
   }
 
+  // handle play button play
   onPrevPageClick = () => {
     const direction = 'prev';
     let index = this.state.index
@@ -314,6 +303,7 @@ class StoryPage extends Component {
                             <h3></h3>
                             <div className="Story-text-title-wrapper">{(this.state.title === null) ? "Loading..." : this.state.title}</div>
                             <p>{story}</p>
+                            {/* {this.fromTextToSpeech()} */}
                           </Carousel.Caption>
                           </Col>
                         </Row>

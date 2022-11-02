@@ -13,13 +13,6 @@ def stories():
 
     # parse file
     obj = json.loads(data)
-    
-    # if request.method == "POST":
-        # params = request.get_json()
-        # storyParagraphs = params['storyParagraphs']
-        # for sp in storyParagraphs:
-            # speak(sp)
-
     return obj
 
 if __name__ == "__main__":
