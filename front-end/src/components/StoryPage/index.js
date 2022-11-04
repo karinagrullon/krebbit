@@ -15,6 +15,8 @@ import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
+import { useSpeechSynthesis } from 'react-speech-kit';
+
 const StoryPage = () => {
   const [stories, setStories] = useState([{}]);
   const [base, setBase] = useState([{}]);
@@ -42,6 +44,9 @@ const StoryPage = () => {
   const nextWordArrowDownPress = useKeyPress('ArrowDown');
   const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
   const nextPageArrowRightPress = useKeyPress('ArrowRight');
+
+  const { speak } = useSpeechSynthesis();
+  const text = 'Some dummy text';
 
   const onPrevPageClick = () => {
     carouselRef.current.prev();
@@ -200,7 +205,7 @@ const StoryPage = () => {
               delay={{ show: 250, hide: 100 }}
               overlay={playTooltip}
             >
-              <Button className="Story-player Story-player-play">{playIcon}</Button>
+              <Button className="Story-player Story-player-play" onClick={() => speak({ text: body })}>{playIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
@@ -271,6 +276,7 @@ const StoryPage = () => {
                             <div className="Story-text-title-wrapper">{(title === null) ? "Loading..." : title}</div>
                             <p>{story}</p>
                             {/* {this.fromTextToSpeech()} */}
+                            {/* {speak(story)} */}
                           </Carousel.Caption>
                           </Col>
                         </Row> 
