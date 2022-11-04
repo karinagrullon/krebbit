@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +6,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
@@ -16,248 +15,216 @@ import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
-class StoryPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      stories: [],
-      playIcon: <FontAwesomeIcon icon={faPlay} />,
-      backwardIcon: <FontAwesomeIcon icon={faBackward} />,
-      forwardIcon: <FontAwesomeIcon icon={faForward} />,
-      backwardStepIcon: <FontAwesomeIcon icon={faBackwardStep} />,
-      forwardStepIcon: <FontAwesomeIcon icon={faForwardStep} />,
-      repeatIcon: <FontAwesomeIcon icon={faRepeat} />,
-      index: 0,  //index to display first
-      direction: null, //direction of the carousel prev or next
-      carouselItemCount: 0,
-      storyImagesCount: 0,
-      imageUrl: null,
-      storyId: null,
-      title: null,
-      subtitle: null,
-      authors: [],
-      publishedDate: null,
-      publisher: null,
-      ages: [],
-      topics: [],
-      imagesLinks: null,
-      summary: null,
-      body: null,
-      storyParagraphs: []
-    }
-  }
+const StoryPage = () => {
+  const [stories, setStories] = useState([{}]);
+  const [base, setBase] = useState([{}]);
+  const [storyId, setStoryId] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [subtitle, setSubtitle] = useState(null);
+  const [publisher, setPublisher] = useState(null);
+  const [authors, setAuthors] = useState([]);
+  const [imagesLinks, setImagesLinks] = useState(null);
+  const [body, setBody] = useState(null);
+  const [storyParagraphs, setStoryParagraphs] = useState([]);
+  const [carouselItemCount, setCarouselItemCount] = useState(0);
+  const [storyImagesCount, setStoryImagesCount] = useState(0);
 
-  getStories = () => {
-    axios.get('/stories')
-    .then(response => {
-      this.setState({
-        stories: response.data
-      })
-      const id = this.getIdFromURL();
-      const base = response.data.stories;
+  const playIcon = useState(<FontAwesomeIcon icon={faPlay} />);
+  const backwardIcon = useState(<FontAwesomeIcon icon={faBackward} />);
+  const forwardIcon = useState(<FontAwesomeIcon icon={faForward} />);
+  const backwardStepIcon = useState(<FontAwesomeIcon icon={faBackwardStep} />);
+  const forwardStepIcon = useState(<FontAwesomeIcon icon={faForwardStep} />);
+  const repeatIcon = useState(<FontAwesomeIcon icon={faRepeat} />);
 
-      this.setState({
-        storyId: base[id].id,
-        title: base[id].title,
-        subtitle: base[id].subtitle,
-        publisher: base[id].publisher,
-        authors: base[id].authors,
-        imagesLinks: base[id].imagesLinks,
-        body: base[id].body,
-        storyParagraphs: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g),
-        carouselItemCount: (this.state.body === null) ? this.state.body : this.state.body.match(/[^.]+.[^.]+./g).length + 2,
-        storyImagesCount: base[id].imagesLinks.storyImages.length
-      })
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
+  const carouselRef = React.useRef(null);
 
-  getIdFromURL = () => {
+  const previousWordArrowUpPress = useKeyPress('ArrowUp');
+  const nextWordArrowDownPress = useKeyPress('ArrowDown');
+  const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
+  const nextPageArrowRightPress = useKeyPress('ArrowRight');
+
+  const onPrevPageClick = () => {
+    carouselRef.current.prev();
+  };
+
+  const onNextPageClick = () => {
+    carouselRef.current.next();
+  };
+
+  const getIdFromURL = () => {
     let result = []; // []
     const stringArray = window.location.search.substring(1).split("&"); // ["id=number", "another=string"]
-  
+
     stringArray.forEach((string) => {
       result.push(string.split("="));
     }); // [[id, number], [other, string], [another, string]
-  
+
     result = Object.fromEntries(result); // {id: number, another: string}
 
     return result.storyId ?? 0; // number (or 0 if undefined)
   }
 
-  componentDidMount() {
-    this.getStories();
-    // this.fromTextToSpeech();
-    window.addEventListener("keydown", this.handleKeyDown);
+
+  const retrieveStories = () => {
+    const id = getIdFromURL();
+
+    fetch("/stories").then(
+      res => res.json()
+    ).then(
+      stories => {
+        setStories(stories)
+        return stories
+      }
+    ).then(
+      base => {
+        setBase(base)
+        setStoryId(base.stories[id].id);
+        setTitle(base.stories[id].title);
+        setSubtitle(base.stories[id].subtitle);
+        setPublisher(base.stories[id].publisher);
+        setAuthors(base.stories[id].authors);
+        setImagesLinks(base.stories[id].imagesLinks);
+        setBody(base.stories[id].body);
+        setStoryParagraphs((base.stories[id].body === null) ? base.stories[id].body : base.stories[id].body.match(/[^.]+.[^.]+./g));
+        setCarouselItemCount((base.stories[id].body === null) ? base.stories[id].body : base.stories[id].body.match(/[^.]+.[^.]+./g).length + 2);
+        setStoryImagesCount(base.stories[id].imagesLinks.storyImages.length);
+        return base;
+      }
+    )
   }
 
-  handleKeyDown = (event) => {
-    if (event.repeat) {
-      return;
-    }
-
-    const { key } = event;
-
-    if (key === "ArrowRight") {
-      console.log("Right");
-    } else if (key === "ArrowLeft") {
-      console.log("Left");
-    }
+  if (typeof storyId !== 'undefined') {
+    console.log(storyId);
+    console.log(title);
+    console.log(subtitle);
+    console.log(publisher);
+    console.log(authors);
+    console.log(body);
+    console.log(storyParagraphs);
   }
 
-  // handle play button play
-  onPrevPageClick = () => {
-    const direction = 'prev';
-    let index = this.state.index
-    const [min, max] = [0, this.state.carouselItemCount - 1]
+  useEffect(() => {
+    retrieveStories();
+  }, [])
 
-    if (direction === 'prev') {
-      index--
-    }
-
-    if (index > max) {
-      index = 0
-    }
-
-    if (index < min) {
-      index = max
-    }
-    this.setState({
-      direction,
-      index
-    })
-  };
-
-  onNextPageClick = () => {
-    const direction = 'next';
-    let index = this.state.index
-    const [min, max] = [0, this.state.carouselItemCount - 1]
-
-    if (direction === 'next') {
-      index++
-    }
-
-    if (index > max) {
-      index = 0
-    }
-
-    if (index < min) {
-      index = max
-    }
-    this.setState({
-      direction,
-      index
-    })
-  };
-
-  previousPageTooltip = (props) => (
+  const previousPageTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
       Previous page
     </Tooltip>
   );
 
-  previousWordTooltip = (props) => (
+  const previousWordTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
       Previous word
     </Tooltip>
   );
 
-  playTooltip = (props) => (
+  const playTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
       Play
     </Tooltip>
   );
 
-  nextWordTooltip = (props) => (
+  const nextWordTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
       Next word
     </Tooltip>
   );
 
-  nextPageTooltip = (props) => (
+  const nextPageTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
       Next page
     </Tooltip>
   );
-
-  handleSelect = (selectedIndex, e) => {
-    this.setState({
-        index: selectedIndex,
-        direction: e.direction
-    });
-  }
-
-  handleStoryImage = (index) => {
+  
+  const handleStoryImage = (index) => {
     let imgUrl = null;
-    this.state.imagesLinks.storyImages.map((image) => 
+    imagesLinks.storyImages.map((image) => 
       image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl 
     )
     return imgUrl;
   }
-  
 
-  render() {
-    console.log(this.state.stories);
-    console.log(this.state.storyId);
-    console.log(this.state.title);
-    const imgLinks = this.state.imagesLinks;
-    console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.storyImagesUrls);
-    console.log((this.state.imagesLinks === null) ? 'Loading...' : imgLinks.thumbnailUrl);
-    console.log(this.state.body);
-    console.log(this.state.storyParagraphs);
+
+  function useKeyPress(targetKey) {
+    // State for keeping track of whether key is pressed
+    const [keyPressed, setKeyPressed] = useState(false);
+    // If pressed key is our target key then set to true
+    function downHandler({ key }) {
+      if (key === targetKey) {
+        setKeyPressed(true);
+      }
+    }
+    // If released key is our target key then set to false
+    const upHandler = ({ key }) => {
+      if (key === targetKey) {
+        setKeyPressed(false);
+      }
+    };
+  
+    // Add event listeners
+    useEffect(() => {
+      window.addEventListener("keydown", downHandler);
+      window.addEventListener("keyup", upHandler);
+      // Remove event listeners on cleanup
+      return () => {
+        window.removeEventListener("keydown", downHandler);
+        window.removeEventListener("keyup", upHandler);
+      };
+    }, []); // Empty array ensures that effect is only run on mount and unmount
+    return keyPressed;
+  }
 
     return (
       <div>
-        <Container className="Story-page-wrapper">
+         <Container className="Story-page-wrapper">
           <Row>
             <Col sm={1}></Col>
             <Col sm={10}>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
-              overlay={this.previousPageTooltip}
+              overlay={previousPageTooltip}
             >
-              <Button onClick={this.onPrevPageClick} className="Story-player Story-player-previous-page">{this.state.backwardStepIcon}</Button>
+              <Button className="Story-player Story-player-previous-page" onClick={onPrevPageClick}>{backwardStepIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
-              overlay={this.previousWordTooltip}
+              overlay={previousWordTooltip}
             >
-              <Button className="Story-player Story-player-previous-word">{this.state.backwardIcon}</Button>
+              <Button className="Story-player Story-player-previous-word">{backwardIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
-              overlay={this.playTooltip}
+              overlay={playTooltip}
             >
-              <Button className="Story-player Story-player-play">{this.state.playIcon}</Button>
+              <Button className="Story-player Story-player-play">{playIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
-              overlay={this.nextWordTooltip}
+              overlay={nextWordTooltip}
             >
-              <Button className="Story-player Story-player-next-word">{this.state.forwardIcon}</Button>
+              <Button className="Story-player Story-player-next-word">{forwardIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
-              overlay={this.nextPageTooltip}
+              overlay={nextPageTooltip}
             >
-              <Button onClick={this.onNextPageClick} className="Story-player Story-player-next-page">{this.state.forwardStepIcon}</Button>
+              <Button className="Story-player Story-player-next-page" onClick={onNextPageClick}>{forwardStepIcon}</Button>
             </OverlayTrigger>
             </Col>
           </Row>
-          <Row>
-          <Col></Col>
+        <Row>
+          <Col>{previousWordArrowUpPress && "up"}{previousPageArrowLeftPress && "left"}{nextPageArrowRightPress && "right"}</Col>
           </Row>
           <Row>
             <Col>
-              <div class="Carousel-wrapper">
-                <Carousel interval={null} variant="dark" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}> 
+              <div className="Carousel-wrapper">
+                <Carousel interval={null} variant="dark" ref={carouselRef}>
                   <Carousel.Item>
                   <Container>
                     <Row>
@@ -266,17 +233,17 @@ class StoryPage extends Component {
                     <div className="Story-cover-image-wrapper">
                       <img
                         className="d-block w-100"
-                        src={require(`../../images/stories/${(this.state.imagesLinks === null) ? 'error-images/image-not-found.jpg' : imgLinks.thumbnailUrl}`)}
+                        src={require(`../../images/stories/${(imagesLinks === null) ? 'error-images/image-not-found.jpg' : imagesLinks.thumbnailUrl}`)}
                         alt="First slide"
-                        key = {`${this.state.storyId}`}
+                        key = {`${storyId}`}
                       />
                     
                       <Carousel.Caption className="Story-cover-text-wrapper">
-                        <h3 className="Story-cover-title">{(this.state.title === null) ? "Loading..." : this.state.title}</h3>
-                        {(this.state.authors === []) ? [] : this.state.authors.map((autor) => 
+                        <h3 className="Story-cover-title">{(title === null) ? "Loading..." : title}</h3>
+                        {(authors === []) ? [] : authors.map((autor) => 
                             <p>{autor}</p>
                         )}
-                        <div className="Story-cover-text-publisher">{(this.state.publisher === null ? 'Loading...' : this.state.publisher)}</div>
+                        <div className="Story-cover-text-publisher">{(publisher === null ? 'Loading...' : publisher)}</div>
                       </Carousel.Caption>
                     </div>
                     </Col>
@@ -284,7 +251,7 @@ class StoryPage extends Component {
                     </Row>
                     </Container>
                     </Carousel.Item>
-                  {(this.state.storyParagraphs === null) ? [] : this.state.storyParagraphs.map((story, index) =>
+                   {(storyParagraphs === null) ? [] : storyParagraphs.map((story, index) =>
                     <Carousel.Item>
                       <Container>
                         <Row>
@@ -292,25 +259,25 @@ class StoryPage extends Component {
                             <div className="Story-image-wrapper">
                               <img
                                 className="d-block w-100"
-                                src={this.handleStoryImage(index) === null || this.handleStoryImage(index) === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${this.handleStoryImage(index)}`)}
+                                src={handleStoryImage(index) === null || handleStoryImage(index) === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${handleStoryImage(index)}`)}
                                 alt="First slide"
-                                key = {`${this.state.storyId}`}
+                                key = {`${storyId}`}
                               />
                             </div>
                           </Col>
                           <Col sm="8">
                           <Carousel.Caption className="Story-text-wrapper">
                             <h3></h3>
-                            <div className="Story-text-title-wrapper">{(this.state.title === null) ? "Loading..." : this.state.title}</div>
+                            <div className="Story-text-title-wrapper">{(title === null) ? "Loading..." : title}</div>
                             <p>{story}</p>
                             {/* {this.fromTextToSpeech()} */}
                           </Carousel.Caption>
                           </Col>
-                        </Row>
-                      </Container>
+                        </Row> 
+                      </Container> 
                     </Carousel.Item>
                   )}
-                  <Carousel.Item>
+                  <Carousel.Item> 
                   <Container>
                     <Row>
                       <Col>
@@ -318,20 +285,19 @@ class StoryPage extends Component {
                         The End
                       </div>
                       <div className="Story-repeat-icon">
-                          {this.state.repeatIcon}
+                          {repeatIcon}
                         </div>
                       </Col>
-                    </Row>
+                    </Row> 
                     </Container>
                     </Carousel.Item>
                 </Carousel>
               </div>
             </Col>
           </Row>
-        </Container>
+        </Container> 
       </div>
     );
-  }
 }
 
 export default StoryPage;
