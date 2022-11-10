@@ -17,6 +17,24 @@ import { faRepeat } from '@fortawesome/free-solid-svg-icons'
 
 import { useSpeechSynthesis } from 'react-speech-kit';
 
+const splitText = (text, from, to) => [
+  text.slice(0, from),
+  text.slice(from, to),
+  text.slice(to)
+];
+
+const HighlightedText = ({ text, from, to }) => {
+  const [start, highlight, finish] = splitText(text, from, to);
+  return (
+    <p>
+      {start}
+      <span style={{ backgroundColor: "#fee44f"}}>{highlight}</span>
+      {finish}
+    </p>
+  );
+};
+
+
 const StoryPage = () => {
   const [stories, setStories] = useState([{}]);
   const [base, setBase] = useState([{}]);
@@ -45,8 +63,32 @@ const StoryPage = () => {
   const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
   const nextPageArrowRightPress = useKeyPress('ArrowRight');
 
-  const { speak } = useSpeechSynthesis();
-  const text = 'Some dummy text';
+  const [highlightSection, setHighlightSection] = React.useState({
+    from: 0,
+    to: 0
+  });
+
+  const handlePlayClick = () => {
+    const synth = window.speechSynthesis;
+    if (!synth) {
+      console.error("no tts");
+      return;
+    }
+
+    for (let i=0; i<storyParagraphs.length-1; i++) {
+      let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
+
+      utterance.addEventListener("boundary", (event) => {
+        const { charIndex, charLength } = event;
+        setHighlightSection({ from: charIndex, to: charIndex + charLength });
+      });
+
+      synth.speak(utterance);
+
+      utterance.addEventListener('end', () => { carouselRef.current.next(); });
+    }
+  };
+
 
   const onPrevPageClick = () => {
     carouselRef.current.prev();
@@ -205,7 +247,7 @@ const StoryPage = () => {
               delay={{ show: 250, hide: 100 }}
               overlay={playTooltip}
             >
-              <Button className="Story-player Story-player-play" onClick={() => speak({ text: body })}>{playIcon}</Button>
+              <Button className="Story-player Story-player-play" onClick={handlePlayClick}>{playIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
@@ -242,7 +284,6 @@ const StoryPage = () => {
                         alt="First slide"
                         key = {`${storyId}`}
                       />
-                    
                       <Carousel.Caption className="Story-cover-text-wrapper">
                         <h3 className="Story-cover-title">{(title === null) ? "Loading..." : title}</h3>
                         {(authors === []) ? [] : authors.map((autor) => 
@@ -274,9 +315,9 @@ const StoryPage = () => {
                           <Carousel.Caption className="Story-text-wrapper">
                             <h3></h3>
                             <div className="Story-text-title-wrapper">{(title === null) ? "Loading..." : title}</div>
-                            <p>{story}</p>
-                            {/* {this.fromTextToSpeech()} */}
-                            {/* {speak(story)} */}
+                            {/*
+                            <p>{story}</p>} */}
+                            <HighlightedText key={index} text={story} {...highlightSection} />
                           </Carousel.Caption>
                           </Col>
                         </Row> 
