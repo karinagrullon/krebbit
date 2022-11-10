@@ -78,12 +78,17 @@ const StoryPage = () => {
       return;
     }
 
+    if (synth.speaking) {
+      synth.cancel();
+    }
+
     const voices = synth.getVoices();
 
     for (let i=0; i<storyParagraphs.length-1; i++) {
       let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
 
       utterance.voice = voices[33];
+      utterance.rate = 0.6;
 
       utterance.addEventListener("boundary", (event) => {
         const { charIndex, charLength } = event;
