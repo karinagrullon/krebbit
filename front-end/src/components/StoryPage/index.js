@@ -68,15 +68,22 @@ const StoryPage = () => {
     to: 0
   });
 
+ 
+
   const handlePlayClick = () => {
     const synth = window.speechSynthesis;
+
     if (!synth) {
       console.error("no tts");
       return;
     }
 
+    const voices = synth.getVoices();
+
     for (let i=0; i<storyParagraphs.length-1; i++) {
       let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
+
+      utterance.voice = voices[33];
 
       utterance.addEventListener("boundary", (event) => {
         const { charIndex, charLength } = event;
