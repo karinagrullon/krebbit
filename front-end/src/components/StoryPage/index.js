@@ -15,6 +15,7 @@ import { faForward } from '@fortawesome/free-solid-svg-icons'
 import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons'
+import { faCancel } from '@fortawesome/free-solid-svg-icons'
 
 import { useSpeechSynthesis } from 'react-speech-kit';
 
@@ -55,6 +56,7 @@ const StoryPage = () => {
   const backwardStepIcon = useState(<FontAwesomeIcon icon={faBackwardStep} />);
   const forwardStepIcon = useState(<FontAwesomeIcon icon={faForwardStep} />);
   const repeatIcon = useState(<FontAwesomeIcon icon={faRepeat} />);
+  const cancelIcon = useState(<FontAwesomeIcon icon={faCancel} />);
   const [playPauseToggleIcon, setPlayPauseToggleIcon] = useState(<FontAwesomeIcon icon={faPlay} />);
   const [playPauseToggleTooltip, setPlayPauseToggleTooltip] = useState('Play');
 
@@ -69,15 +71,6 @@ const StoryPage = () => {
     from: 0,
     to: 0
   });
-
-  const handleStoryPause = (synth) => {
-    synth.pause();
-  }
-
-  const handleStoryResume = (synth) => {
-    synth.resume();
-  }
-
 
   const handlePlayClick = () => {
     const synth = window.speechSynthesis;
@@ -100,6 +93,20 @@ const StoryPage = () => {
       setPlayPauseToggleTooltip('Pause');
     }
 
+    let utteranceTitle = new SpeechSynthesisUtterance(title);
+
+    utteranceTitle.lang = "en-US";
+    utteranceTitle.rate = 0.7;
+
+    setTimeout(synth.speak(utteranceTitle), 5000);
+
+
+    utteranceTitle.addEventListener('end', () => { 
+      if (!synth.speaking || !synth.paused) {
+        onNextPageClick();
+      } 
+    });
+
     for (let i=0; i<storyParagraphs.length-1; i++) {
       let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
       
@@ -118,8 +125,10 @@ const StoryPage = () => {
         if (!synth.speaking || !synth.paused) {
           onNextPageClick() 
         } 
+        if (i === storyParagraphs.length-1) {
+          synth.cancel();
+        }
       });
-
     }
   };
 
@@ -173,15 +182,15 @@ const StoryPage = () => {
     )
   }
 
-  if (typeof storyId !== 'undefined') {
-    console.log(storyId);
-    console.log(title);
-    console.log(subtitle);
-    console.log(publisher);
-    console.log(authors);
-    console.log(body);
-    console.log(storyParagraphs);
-  }
+  // if (typeof storyId !== 'undefined') {
+  //   console.log(storyId);
+  //   console.log(title);
+  //   console.log(subtitle);
+  //   console.log(publisher);
+  //   console.log(authors);
+  //   console.log(body);
+  //   console.log(storyParagraphs);
+  // }
 
   useEffect(() => {
     retrieveStories();
