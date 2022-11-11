@@ -8,7 +8,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPeopleCarry, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
 import { faForward } from '@fortawesome/free-solid-svg-icons'
 import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
@@ -49,12 +50,13 @@ const StoryPage = () => {
   const [carouselItemCount, setCarouselItemCount] = useState(0);
   const [storyImagesCount, setStoryImagesCount] = useState(0);
 
-  const playIcon = useState(<FontAwesomeIcon icon={faPlay} />);
   const backwardIcon = useState(<FontAwesomeIcon icon={faBackward} />);
   const forwardIcon = useState(<FontAwesomeIcon icon={faForward} />);
   const backwardStepIcon = useState(<FontAwesomeIcon icon={faBackwardStep} />);
   const forwardStepIcon = useState(<FontAwesomeIcon icon={faForwardStep} />);
   const repeatIcon = useState(<FontAwesomeIcon icon={faRepeat} />);
+  const [playPauseToggleIcon, setPlayPauseToggleIcon] = useState(<FontAwesomeIcon icon={faPlay} />);
+  const [playPauseToggleTooltip, setPlayPauseToggleTooltip] = useState('Play');
 
   const carouselRef = React.useRef(null);
 
@@ -68,26 +70,41 @@ const StoryPage = () => {
     to: 0
   });
 
- 
+  const handleStoryPause = (synth) => {
+    synth.pause();
+  }
+
+  const handleStoryResume = (synth) => {
+    synth.resume();
+  }
+
 
   const handlePlayClick = () => {
     const synth = window.speechSynthesis;
 
     if (!synth) {
       console.error("no tts");
+      alert('No SpeechSynthesis supported!');
       return;
     }
 
-    if (synth.speaking) {
-      synth.cancel();
+    if (synth.speaking || !synth.paused) {
+      synth.pause();
+      setPlayPauseToggleIcon(<FontAwesomeIcon icon={faPlay} />);
+      setPlayPauseToggleTooltip('Play');
     }
 
-    const voices = synth.getVoices();
+    if (synth.paused) {
+      synth.resume();
+      setPlayPauseToggleIcon(<FontAwesomeIcon icon={faPause} />);
+      setPlayPauseToggleTooltip('Pause');
+    }
 
     for (let i=0; i<storyParagraphs.length-1; i++) {
       let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
-
-      utterance.voice = voices[33];
+      
+      utterance.voiceURI = 'native';
+      utterance.lang = "en-US";
       utterance.rate = 0.6;
 
       utterance.addEventListener("boundary", (event) => {
@@ -97,10 +114,14 @@ const StoryPage = () => {
 
       synth.speak(utterance);
 
-      utterance.addEventListener('end', () => { carouselRef.current.next(); });
+      utterance.addEventListener('end', () => { 
+        if (!synth.speaking || !synth.paused) {
+          onNextPageClick() 
+        } 
+      });
+
     }
   };
-
 
   const onPrevPageClick = () => {
     carouselRef.current.prev();
@@ -180,7 +201,7 @@ const StoryPage = () => {
 
   const playTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
-      Play
+      {playPauseToggleTooltip}
     </Tooltip>
   );
 
@@ -259,7 +280,7 @@ const StoryPage = () => {
               delay={{ show: 250, hide: 100 }}
               overlay={playTooltip}
             >
-              <Button className="Story-player Story-player-play" onClick={handlePlayClick}>{playIcon}</Button>
+              <Button className="Story-player Story-player-play" onClick={handlePlayClick}>{playPauseToggleIcon}</Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
@@ -327,8 +348,6 @@ const StoryPage = () => {
                           <Carousel.Caption className="Story-text-wrapper">
                             <h3></h3>
                             <div className="Story-text-title-wrapper">{(title === null) ? "Loading..." : title}</div>
-                            {/*
-                            <p>{story}</p>} */}
                             <HighlightedText key={index} text={story} {...highlightSection} />
                           </Carousel.Caption>
                           </Col>
