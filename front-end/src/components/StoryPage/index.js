@@ -50,6 +50,7 @@ const StoryPage = () => {
   const [storyParagraphs, setStoryParagraphs] = useState([]);
   const [carouselItemCount, setCarouselItemCount] = useState(0);
   const [storyImagesCount, setStoryImagesCount] = useState(0);
+  const [previousUrl, setPreviousUrl] = useState('');
 
   const backwardIcon = useState(<FontAwesomeIcon icon={faBackward} />);
   const forwardIcon = useState(<FontAwesomeIcon icon={faForward} />);
@@ -93,6 +94,13 @@ const StoryPage = () => {
       setPlayPauseToggleTooltip('Pause');
     }
 
+    console.log(synth.speaking);
+    console.log(previousUrl);
+    console.log(window.location.pathname + getIdFromURL());
+    if (synth.speaking && previousUrl !== window.location.pathname + getIdFromURL()) {
+      synth.cancel();
+    }
+
     let utteranceTitle = new SpeechSynthesisUtterance(title);
 
     utteranceTitle.lang = "en-US";
@@ -130,6 +138,7 @@ const StoryPage = () => {
         }
       });
     }
+    setPreviousUrl(window.location.pathname + getIdFromURL());
   };
 
   const onPrevPageClick = () => {
