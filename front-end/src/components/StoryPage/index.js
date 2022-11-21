@@ -6,6 +6,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Form from 'react-bootstrap/Form';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleCarry, faPlay } from '@fortawesome/free-solid-svg-icons'
@@ -68,6 +69,8 @@ const StoryPage = () => {
   const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
   const nextPageArrowRightPress = useKeyPress('ArrowRight');
 
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
   const [highlightSection, setHighlightSection] = React.useState({
     from: 0,
     to: 0
@@ -106,9 +109,6 @@ const StoryPage = () => {
     utteranceTitle.lang = "en-US";
     utteranceTitle.rate = 0.7;
 
-    setTimeout(synth.speak(utteranceTitle), 5000);
-
-
     utteranceTitle.addEventListener('end', () => { 
       if (!synth.speaking || !synth.paused) {
         onNextPageClick();
@@ -141,6 +141,47 @@ const StoryPage = () => {
     setPreviousUrl(window.location.pathname + getIdFromURL());
   };
 
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+  const SpeechRecognitionEvent = window.SpeechRecognitionEvent;
+
+  console.log(storyParagraphs);
+
+  const recognition = new SpeechRecognition();
+
+  let storyWords = [];
+
+  if (storyParagraphs.length !== 0 &&  storyParagraphs !== 'undefined' && SpeechGrammarList) {
+    storyWords = storyParagraphs[0].split(" ");
+
+    const grammar = `#JSGF V1.0; grammar colors; public <color> = ${storyWords.join(' | ')};`
+
+    const speechRecognitionList = new SpeechGrammarList();
+  
+    speechRecognitionList.addFromString(grammar, 1);
+    recognition.grammars = speechRecognitionList;
+  }
+
+  recognition.continuous = false;
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = function(event) {
+    // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+    // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+    // It has a getter so it can be accessed like an array
+    // The first [0] returns the SpeechRecognitionResult at the last position.
+    // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+    // These also have getters so they can be accessed like arrays.
+    // The second [0] returns the SpeechRecognitionAlternative at position 0.
+    // We then return the transcript property of the SpeechRecognitionAlternative object
+    var word = event.results[0][0].transcript;
+    console.log(word);
+    console.log('Confidence: ' + event.results[0][0].confidence);
+  }
+    
+
   const onPrevPageClick = () => {
     carouselRef.current.prev();
   };
@@ -148,6 +189,30 @@ const StoryPage = () => {
   const onNextPageClick = () => {
     carouselRef.current.next();
   };
+
+  const onSwitchAction = () => {
+    setIsSwitchOn(!isSwitchOn);
+  };
+
+
+  const startSpeechRecognition = () => {
+    if (isSwitchOn) {
+      recognition.start();
+      console.log('Ready to receive a color command.');
+    }
+  };
+
+  useEffect(() => { // similar to componentDidUpdate
+    startSpeechRecognition();
+  });
+
+  recognition.onspeechend = () => {
+    recognition.stop();
+  };
+
+  // recognition.onspeechend = new Promise(() => {
+  //   recognition.stop();
+  // }).then(recognition.start());
 
   const getIdFromURL = () => {
     let result = []; // []
@@ -200,6 +265,7 @@ const StoryPage = () => {
   //   console.log(body);
   //   console.log(storyParagraphs);
   // }
+
 
   useEffect(() => {
     retrieveStories();
@@ -277,8 +343,8 @@ const StoryPage = () => {
       <div>
          <Container className="Story-page-wrapper">
           <Row>
-            <Col sm={1}></Col>
-            <Col sm={10}>
+            <Col sm={3}></Col>
+            <Col sm={6}>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
@@ -314,6 +380,18 @@ const StoryPage = () => {
             >
               <Button className="Story-player Story-player-next-page" onClick={onNextPageClick}>{forwardStepIcon}</Button>
             </OverlayTrigger>
+            </Col>
+            <Col sm="3">
+            <Form>
+              <Form.Check 
+                type="switch"
+                id="custom-switch"
+                onChange={onSwitchAction}
+                label="Student Read Mode"
+                className="Student-read-mode"
+                checked={isSwitchOn}
+              />
+            </Form>
             </Col>
           </Row>
         <Row>

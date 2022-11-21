@@ -342,6 +342,14 @@ hr.footer-hr {
   color: rgba(68, 83, 140, 0.5);
 }
 
+.Highlighted-word-speak:hover {
+  background-color: #44538C;
+}
+
+.Student-read-mode {
+  color: rgb(121, 121, 121);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
