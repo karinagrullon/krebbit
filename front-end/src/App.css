@@ -216,6 +216,18 @@ a:hover {
   font-size: 20px;
 }
 
+.Story-player-volume {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.Story-player-volume:disabled {
+  background-color: #aaa;
+  border-color: #979797;
+  color: #ebebeb;
+}
+
 .Story-player:hover {
   background-color: #2e3861 !important;
   border-color: #C3E968 !important;
@@ -349,6 +361,19 @@ hr.footer-hr {
 .Student-read-mode {
   color: rgb(121, 121, 121);
 }
+
+.storyText p::selection {
+  background: #ccc;
+  color: blue;
+}
+
+/* .speechMenu {
+  visibility:hidden;
+}
+
+.speechMenu:hover {
+  visibility:visible;
+} */
 
 @keyframes App-logo-spin {
   from {

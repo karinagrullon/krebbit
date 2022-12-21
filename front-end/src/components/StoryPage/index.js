@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Carousel from 'react-bootstrap/Carousel';
-import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import Form from 'react-bootstrap/Form';
+import React, { useState, useEffect } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Form from "react-bootstrap/Form";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPeopleCarry, faPlay } from '@fortawesome/free-solid-svg-icons'
-import { faPause } from '@fortawesome/free-solid-svg-icons'
-import { faBackward } from '@fortawesome/free-solid-svg-icons'
-import { faForward } from '@fortawesome/free-solid-svg-icons'
-import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faRepeat } from '@fortawesome/free-solid-svg-icons'
-import { faCancel } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPeopleCarry, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPause } from "@fortawesome/free-solid-svg-icons";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faForward } from "@fortawesome/free-solid-svg-icons";
+import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faRepeat } from "@fortawesome/free-solid-svg-icons";
+import { faCancel } from "@fortawesome/free-solid-svg-icons";
+import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis } from "react-speech-kit";
 
 const splitText = (text, from, to) => [
   text.slice(0, from),
   text.slice(from, to),
-  text.slice(to)
+  text.slice(to),
 ];
 
 const HighlightedText = ({ text, from, to }) => {
@@ -31,12 +32,11 @@ const HighlightedText = ({ text, from, to }) => {
   return (
     <p>
       {start}
-      <span style={{ backgroundColor: "#fee44f"}}>{highlight}</span>
+      <span style={{ backgroundColor: "#fee44f" }}>{highlight}</span>
       {finish}
     </p>
   );
 };
-
 
 const StoryPage = () => {
   const [stories, setStories] = useState([{}]);
@@ -51,7 +51,7 @@ const StoryPage = () => {
   const [storyParagraphs, setStoryParagraphs] = useState([]);
   const [carouselItemCount, setCarouselItemCount] = useState(0);
   const [storyImagesCount, setStoryImagesCount] = useState(0);
-  const [previousUrl, setPreviousUrl] = useState('');
+  const [previousUrl, setPreviousUrl] = useState("");
 
   const backwardIcon = useState(<FontAwesomeIcon icon={faBackward} />);
   const forwardIcon = useState(<FontAwesomeIcon icon={faForward} />);
@@ -59,48 +59,79 @@ const StoryPage = () => {
   const forwardStepIcon = useState(<FontAwesomeIcon icon={faForwardStep} />);
   const repeatIcon = useState(<FontAwesomeIcon icon={faRepeat} />);
   const cancelIcon = useState(<FontAwesomeIcon icon={faCancel} />);
-  const [playPauseToggleIcon, setPlayPauseToggleIcon] = useState(<FontAwesomeIcon icon={faPlay} />);
-  const [playPauseToggleTooltip, setPlayPauseToggleTooltip] = useState('Play');
+  const volumeIcon = useState(<FontAwesomeIcon icon={faVolumeUp} />);
+  const [playPauseToggleIcon, setPlayPauseToggleIcon] = useState(
+    <FontAwesomeIcon icon={faPlay} />
+  );
+  const [playPauseToggleTooltip, setPlayPauseToggleTooltip] = useState("Play");
+
+  const [speechRecogBrowserComp, setSpeechRecogBrowserComp] = useState(false);
 
   const carouselRef = React.useRef(null);
 
-  const previousWordArrowUpPress = useKeyPress('ArrowUp');
-  const nextWordArrowDownPress = useKeyPress('ArrowDown');
-  const previousPageArrowLeftPress = useKeyPress('ArrowLeft');
-  const nextPageArrowRightPress = useKeyPress('ArrowRight');
+  const previousWordArrowUpPress = useKeyPress("ArrowUp");
+  const nextWordArrowDownPress = useKeyPress("ArrowDown");
+  const previousPageArrowLeftPress = useKeyPress("ArrowLeft");
+  const nextPageArrowRightPress = useKeyPress("ArrowRight");
+
+  const [selectedText, setSelectedText] = useState('');
 
   const [isSwitchOn, setIsSwitchOn] = useState(false);
 
   const [highlightSection, setHighlightSection] = React.useState({
     from: 0,
-    to: 0
+    to: 0,
   });
+
+
+const onEnd = () => {
+  setSelectedText('')
+}
+const { speak, cancel, supported } = useSpeechSynthesis({onEnd})
+
+const handleTextSet = () => {
+  const text = window.getSelection().toString()
+  console.log(text);
+  if(text !== '') setSelectedText(text)
+}
+
+// setting selectedText state when text has been highlighted
+useEffect(() => {
+  document.addEventListener('mouseup', handleTextSet)
+  return () => {
+    document.removeEventListener('mouseup', handleTextSet)
+  }
+}, [])
+
 
   const handlePlayClick = () => {
     const synth = window.speechSynthesis;
 
     if (!synth) {
       console.error("no tts");
-      alert('No SpeechSynthesis supported!');
+      alert("No SpeechSynthesis supported!");
       return;
     }
 
     if (synth.speaking || !synth.paused) {
       synth.pause();
       setPlayPauseToggleIcon(<FontAwesomeIcon icon={faPlay} />);
-      setPlayPauseToggleTooltip('Play');
+      setPlayPauseToggleTooltip("Play");
     }
 
     if (synth.paused) {
       synth.resume();
       setPlayPauseToggleIcon(<FontAwesomeIcon icon={faPause} />);
-      setPlayPauseToggleTooltip('Pause');
+      setPlayPauseToggleTooltip("Pause");
     }
 
     console.log(synth.speaking);
     console.log(previousUrl);
     console.log(window.location.pathname + getIdFromURL());
-    if (synth.speaking && previousUrl !== window.location.pathname + getIdFromURL()) {
+    if (
+      synth.speaking &&
+      previousUrl !== window.location.pathname + getIdFromURL()
+    ) {
       synth.cancel();
     }
 
@@ -109,16 +140,18 @@ const StoryPage = () => {
     utteranceTitle.lang = "en-US";
     utteranceTitle.rate = 0.7;
 
-    utteranceTitle.addEventListener('end', () => { 
+    utteranceTitle.addEventListener("end", () => {
       if (!synth.speaking || !synth.paused) {
         onNextPageClick();
-      } 
+      }
     });
 
-    for (let i=0; i<storyParagraphs.length-1; i++) {
+    synth.speak(utteranceTitle);
+
+    for (let i = 0; i < storyParagraphs.length - 1; i++) {
       let utterance = new SpeechSynthesisUtterance(storyParagraphs[i]);
-      
-      utterance.voiceURI = 'native';
+
+      utterance.voiceURI = "native";
       utterance.lang = "en-US";
       utterance.rate = 0.6;
 
@@ -129,11 +162,11 @@ const StoryPage = () => {
 
       synth.speak(utterance);
 
-      utterance.addEventListener('end', () => { 
+      utterance.addEventListener("end", () => {
         if (!synth.speaking || !synth.paused) {
-          onNextPageClick() 
-        } 
-        if (i === storyParagraphs.length-1) {
+          onNextPageClick();
+        }
+        if (i === storyParagraphs.length - 1) {
           synth.cancel();
         }
       });
@@ -141,69 +174,81 @@ const StoryPage = () => {
     setPreviousUrl(window.location.pathname + getIdFromURL());
   };
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechGrammarList =
+    window.SpeechGrammarList || window.webkitSpeechGrammarList;
   const SpeechRecognitionEvent = window.SpeechRecognitionEvent;
+
+ // setSpeechRecogBrowserComp("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
 
   console.log(storyParagraphs);
 
-  const recognition = new SpeechRecognition();
+  let recognition = {};
 
-  let storyWords = [];
+  console.log(speechRecogBrowserComp);
 
-  if (storyParagraphs.length !== 0 &&  storyParagraphs !== 'undefined' && SpeechGrammarList) {
-    storyWords = storyParagraphs[0].split(" ");
+  if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+    recognition = new SpeechRecognition();
 
-    const grammar = `#JSGF V1.0; grammar colors; public <color> = ${storyWords.join(' | ')};`
+    let storyWords = [];
 
-    const speechRecognitionList = new SpeechGrammarList();
-  
-    speechRecognitionList.addFromString(grammar, 1);
-    recognition.grammars = speechRecognitionList;
+    if (
+      storyParagraphs.length !== 0 &&
+      storyParagraphs !== "undefined" &&
+      SpeechGrammarList
+    ) {
+      storyWords = storyParagraphs[0].split(" ");
+
+      const grammar = `#JSGF V1.0; grammar colors; public <color> = ${storyWords.join(
+        " | "
+      )};`;
+
+      const speechRecognitionList = new SpeechGrammarList();
+
+      speechRecognitionList.addFromString(grammar, 1);
+      recognition.grammars = speechRecognitionList;
+    }
+
+    recognition.continuous = false;
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = function (event) {
+      // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+      // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+      // It has a getter so it can be accessed like an array
+      // The first [0] returns the SpeechRecognitionResult at the last position.
+      // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+      // These also have getters so they can be accessed like arrays.
+      // The second [0] returns the SpeechRecognitionAlternative at position 0.
+      // We then return the transcript property of the SpeechRecognitionAlternative object
+      var word = event.results[0][0].transcript;
+      console.log(word);
+      console.log("Confidence: " + event.results[0][0].confidence);
+    };
   }
-
-  recognition.continuous = false;
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-
-  recognition.onresult = function(event) {
-    // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-    // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-    // It has a getter so it can be accessed like an array
-    // The first [0] returns the SpeechRecognitionResult at the last position.
-    // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-    // These also have getters so they can be accessed like arrays.
-    // The second [0] returns the SpeechRecognitionAlternative at position 0.
-    // We then return the transcript property of the SpeechRecognitionAlternative object
-    var word = event.results[0][0].transcript;
-    console.log(word);
-    console.log('Confidence: ' + event.results[0][0].confidence);
-  }
-    
-
-  const onPrevPageClick = () => {
-    carouselRef.current.prev();
-  };
-
-  const onNextPageClick = () => {
-    carouselRef.current.next();
+  const startSpeechRecognition = () => {
+    if (isSwitchOn) {
+      if (
+        "SpeechRecognition" in window ||
+        "webkitSpeechRecognition" in window
+      ) {
+        recognition.start();
+      }
+    }
   };
 
   const onSwitchAction = () => {
     setIsSwitchOn(!isSwitchOn);
   };
 
-
-  const startSpeechRecognition = () => {
-    if (isSwitchOn) {
-      recognition.start();
-      console.log('Ready to receive a color command.');
+  useEffect(() => {
+    // similar to componentDidUpdate
+    if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+      startSpeechRecognition();
     }
-  };
-
-  useEffect(() => { // similar to componentDidUpdate
-    startSpeechRecognition();
   });
 
   recognition.onspeechend = () => {
@@ -213,6 +258,14 @@ const StoryPage = () => {
   // recognition.onspeechend = new Promise(() => {
   //   recognition.stop();
   // }).then(recognition.start());
+
+  const onPrevPageClick = () => {
+    carouselRef.current.prev();
+  };
+
+  const onNextPageClick = () => {
+    carouselRef.current.next();
+  };
 
   const getIdFromURL = () => {
     let result = []; // []
@@ -225,22 +278,19 @@ const StoryPage = () => {
     result = Object.fromEntries(result); // {id: number, another: string}
 
     return result.storyId ?? 0; // number (or 0 if undefined)
-  }
-
+  };
 
   const retrieveStories = () => {
     const id = getIdFromURL();
 
-    fetch("/stories").then(
-      res => res.json()
-    ).then(
-      stories => {
-        setStories(stories)
-        return stories
-      }
-    ).then(
-      base => {
-        setBase(base)
+    fetch("/stories")
+      .then((res) => res.json())
+      .then((stories) => {
+        setStories(stories);
+        return stories;
+      })
+      .then((base) => {
+        setBase(base);
         setStoryId(base.stories[id].id);
         setTitle(base.stories[id].title);
         setSubtitle(base.stories[id].subtitle);
@@ -248,13 +298,20 @@ const StoryPage = () => {
         setAuthors(base.stories[id].authors);
         setImagesLinks(base.stories[id].imagesLinks);
         setBody(base.stories[id].body);
-        setStoryParagraphs((base.stories[id].body === null) ? base.stories[id].body : base.stories[id].body.match(/[^.]+.[^.]+./g));
-        setCarouselItemCount((base.stories[id].body === null) ? base.stories[id].body : base.stories[id].body.match(/[^.]+.[^.]+./g).length + 2);
+        setStoryParagraphs(
+          base.stories[id].body === null
+            ? base.stories[id].body
+            : base.stories[id].body.match(/[^.]+.[^.]+./g)
+        );
+        setCarouselItemCount(
+          base.stories[id].body === null
+            ? base.stories[id].body
+            : base.stories[id].body.match(/[^.]+.[^.]+./g).length + 2
+        );
         setStoryImagesCount(base.stories[id].imagesLinks.storyImages.length);
         return base;
-      }
-    )
-  }
+      });
+  };
 
   // if (typeof storyId !== 'undefined') {
   //   console.log(storyId);
@@ -266,10 +323,9 @@ const StoryPage = () => {
   //   console.log(storyParagraphs);
   // }
 
-
   useEffect(() => {
     retrieveStories();
-  }, [])
+  }, []);
 
   const previousPageTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props} className="Krebbit-tooltip">
@@ -300,15 +356,14 @@ const StoryPage = () => {
       Next page
     </Tooltip>
   );
-  
+
   const handleStoryImage = (index) => {
     let imgUrl = null;
-    imagesLinks.storyImages.map((image) => 
-      image.range.includes(index) ? imgUrl = image.url : imgUrl = imgUrl 
-    )
+    imagesLinks.storyImages.map((image) =>
+      image.range.includes(index) ? (imgUrl = image.url) : (imgUrl = imgUrl)
+    );
     return imgUrl;
-  }
-
+  };
 
   function useKeyPress(targetKey) {
     // State for keeping track of whether key is pressed
@@ -325,7 +380,7 @@ const StoryPage = () => {
         setKeyPressed(false);
       }
     };
-  
+
     // Add event listeners
     useEffect(() => {
       window.addEventListener("keydown", downHandler);
@@ -339,51 +394,79 @@ const StoryPage = () => {
     return keyPressed;
   }
 
-    return (
-      <div>
-         <Container className="Story-page-wrapper">
-          <Row>
-            <Col sm={3}></Col>
-            <Col sm={6}>
+  return (
+    <div className="storyText">
+      <Container className="Story-page-wrapper">
+        <Row>
+          <Col sm={3}>
+          {supported && 
+            <div className="speechMenu">
+              {
+                <Button className="Story-player Story-player-volume" onClick={() => speak({ text: selectedText})} disabled={selectedText !== "" ? false : true}>{volumeIcon}</Button>
+              }
+              {selectedText}
+            </div>
+          }
+          </Col>
+          <Col sm={6}>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
               overlay={previousPageTooltip}
             >
-              <Button className="Story-player Story-player-previous-page" onClick={onPrevPageClick}>{backwardStepIcon}</Button>
+              <Button
+                className="Story-player Story-player-previous-page"
+                onClick={onPrevPageClick}
+              >
+                {backwardStepIcon}
+              </Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
               overlay={previousWordTooltip}
             >
-              <Button className="Story-player Story-player-previous-word">{backwardIcon}</Button>
+              <Button className="Story-player Story-player-previous-word">
+                {backwardIcon}
+              </Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
               overlay={playTooltip}
             >
-              <Button className="Story-player Story-player-play" onClick={handlePlayClick}>{playPauseToggleIcon}</Button>
+              <Button
+                className="Story-player Story-player-play"
+                onClick={handlePlayClick}
+              >
+                {playPauseToggleIcon}
+              </Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
               overlay={nextWordTooltip}
             >
-              <Button className="Story-player Story-player-next-word">{forwardIcon}</Button>
+              <Button className="Story-player Story-player-next-word">
+                {forwardIcon}
+              </Button>
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 100 }}
               overlay={nextPageTooltip}
             >
-              <Button className="Story-player Story-player-next-page" onClick={onNextPageClick}>{forwardStepIcon}</Button>
+              <Button
+                className="Story-player Story-player-next-page"
+                onClick={onNextPageClick}
+              >
+                {forwardStepIcon}
+              </Button>
             </OverlayTrigger>
-            </Col>
-            <Col sm="3">
+          </Col>
+          <Col sm="3">
             <Form>
-              <Form.Check 
+              <Form.Check
                 type="switch"
                 id="custom-switch"
                 onChange={onSwitchAction}
@@ -392,86 +475,109 @@ const StoryPage = () => {
                 checked={isSwitchOn}
               />
             </Form>
-            </Col>
-          </Row>
+          </Col>
+        </Row>
         <Row>
-          <Col>{previousWordArrowUpPress && "up"}{previousPageArrowLeftPress && "left"}{nextPageArrowRightPress && "right"}</Col>
-          </Row>
-          <Row>
-            <Col>
-              <div className="Carousel-wrapper">
-                <Carousel interval={null} variant="dark" ref={carouselRef}>
-                  <Carousel.Item>
+          <Col>
+            {previousWordArrowUpPress && "up"}
+            {previousPageArrowLeftPress && "left"}
+            {nextPageArrowRightPress && "right"}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="Carousel-wrapper">
+              <Carousel interval={null} variant="dark" ref={carouselRef}>
+                <Carousel.Item>
                   <Container>
                     <Row>
                       <Col sm="4"></Col>
                       <Col sm="4">
-                    <div className="Story-cover-image-wrapper">
-                      <img
-                        className="d-block w-100"
-                        src={require(`../../images/stories/${(imagesLinks === null) ? 'error-images/image-not-found.jpg' : imagesLinks.thumbnailUrl}`)}
-                        alt="First slide"
-                        key = {`${storyId}`}
-                      />
-                      <Carousel.Caption className="Story-cover-text-wrapper">
-                        <h3 className="Story-cover-title">{(title === null) ? "Loading..." : title}</h3>
-                        {(authors === []) ? [] : authors.map((autor) => 
-                            <p>{autor}</p>
-                        )}
-                        <div className="Story-cover-text-publisher">{(publisher === null ? 'Loading...' : publisher)}</div>
-                      </Carousel.Caption>
-                    </div>
-                    </Col>
-                    <Col sm="4"></Col>
-                    </Row>
-                    </Container>
-                    </Carousel.Item>
-                   {(storyParagraphs === null) ? [] : storyParagraphs.map((story, index) =>
-                    <Carousel.Item>
-                      <Container>
-                        <Row>
-                          <Col sm="4">
-                            <div className="Story-image-wrapper">
-                              <img
-                                className="d-block w-100"
-                                src={handleStoryImage(index) === null || handleStoryImage(index) === 'undefined' ? require('../../images/stories/error-images/image-not-found.jpg') : require(`../../images/stories/${handleStoryImage(index)}`)}
-                                alt="First slide"
-                                key = {`${storyId}`}
-                              />
+                        <div className="Story-cover-image-wrapper">
+                          <img
+                            className="d-block w-100"
+                            src={require(`../../images/stories/${
+                              imagesLinks === null
+                                ? "error-images/image-not-found.jpg"
+                                : imagesLinks.thumbnailUrl
+                            }`)}
+                            alt="First slide"
+                            key={`${storyId}`}
+                          />
+                          <Carousel.Caption className="Story-cover-text-wrapper">
+                            <h3 className="Story-cover-title">
+                              {title === null ? "Loading..." : title}
+                            </h3>
+                            {authors === []
+                              ? []
+                              : authors.map((autor) => <p>{autor}</p>)}
+                            <div className="Story-cover-text-publisher">
+                              {publisher === null ? "Loading..." : publisher}
                             </div>
-                          </Col>
-                          <Col sm="8">
-                          <Carousel.Caption className="Story-text-wrapper">
-                            <h3></h3>
-                            <div className="Story-text-title-wrapper">{(title === null) ? "Loading..." : title}</div>
-                            <HighlightedText key={index} text={story} {...highlightSection} />
                           </Carousel.Caption>
-                          </Col>
-                        </Row> 
-                      </Container> 
-                    </Carousel.Item>
-                  )}
-                  <Carousel.Item> 
+                        </div>
+                      </Col>
+                      <Col sm="4"></Col>
+                    </Row>
+                  </Container>
+                </Carousel.Item>
+                {storyParagraphs === null
+                  ? []
+                  : storyParagraphs.map((story, index) => (
+                      <Carousel.Item>
+                        <Container>
+                          <Row>
+                            <Col sm="4">
+                              <div className="Story-image-wrapper">
+                                <img
+                                  className="d-block w-100"
+                                  src={
+                                    handleStoryImage(index) === null ||
+                                    handleStoryImage(index) === "undefined"
+                                      ? require("../../images/stories/error-images/image-not-found.jpg")
+                                      : require(`../../images/stories/${handleStoryImage(
+                                          index
+                                        )}`)
+                                  }
+                                  alt="First slide"
+                                  key={`${storyId}`}
+                                />
+                              </div>
+                            </Col>
+                            <Col sm="8">
+                              <Carousel.Caption className="Story-text-wrapper">
+                                <h3></h3>
+                                <div className="Story-text-title-wrapper">
+                                  {title === null ? "Loading..." : title}
+                                </div>
+                                <HighlightedText
+                                  key={index}
+                                  text={story}
+                                  {...highlightSection}
+                                />
+                              </Carousel.Caption>
+                            </Col>
+                          </Row>
+                        </Container>
+                      </Carousel.Item>
+                    ))}
+                <Carousel.Item>
                   <Container>
                     <Row>
                       <Col>
-                      <div className="Story-end-wrapper">
-                        The End
-                      </div>
-                      <div className="Story-repeat-icon">
-                          {repeatIcon}
-                        </div>
+                        <div className="Story-end-wrapper">The End</div>
+                        <div className="Story-repeat-icon">{repeatIcon}</div>
                       </Col>
-                    </Row> 
-                    </Container>
-                    </Carousel.Item>
-                </Carousel>
-              </div>
-            </Col>
-          </Row>
-        </Container> 
-      </div>
-    );
-}
+                    </Row>
+                  </Container>
+                </Carousel.Item>
+              </Carousel>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
 
 export default StoryPage;
